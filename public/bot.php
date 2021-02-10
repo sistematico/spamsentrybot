@@ -12,8 +12,8 @@ function processMessage($message)
     // process incoming message
     $message_id = $message['message_id'];
     $chat_id = $message['chat']['id'];
-    $username = $message['user_id']['username'];
-    $original = $message['message_id']['forward_from_message_id'];
+    $username = $message['message_id']['username'];
+    $original = $message['chat']['id']['forward_from_message_id'];
 
 
     if (isset($message['text'])) {
