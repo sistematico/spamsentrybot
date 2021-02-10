@@ -3,6 +3,7 @@
 $envs = parse_ini_file('../.env.local');
 define('BOT_TOKEN', $envs['TOKEN']);
 define('API_URL', 'https://api.telegram.org/bot' . BOT_TOKEN . '/');
+define('WEBHOOK_URL', $envs['WEBHOOK']);
 
 require_once '../lib/api.php';
 
@@ -26,19 +27,9 @@ function processMessage($message)
         } else if (strpos($text, "/stop") === 0) {
             // stop now
         } else {
-            apiRequestWebhook("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => 'Cool'));
+            //apiRequestWebhook("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => 'Cool'));
         }
-    } else {
-        //apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => 'I understand only text messages'));
     }
-}
-
-define('WEBHOOK_URL', $envs['WEBHOOK']);
-
-if (php_sapi_name() == 'cli') {
-    // if run from console, set or delete webhook
-    apiRequest('setWebhook', array('url' => isset($argv[1]) && $argv[1] == 'delete' ? '' : WEBHOOK_URL));
-    exit;
 }
 
 $content = file_get_contents("php://input");
