@@ -1,6 +1,8 @@
 <?php
 
-define('BOT_TOKEN', '12345678:replace-me-with-real-token');
+$envs = parse_ini_file('../.env.local');
+
+define('BOT_TOKEN', $envs['TOKEN']);
 define('API_URL', 'https://api.telegram.org/bot'.BOT_TOKEN.'/');
 
 function apiRequestWebhook($method, $parameters) {
@@ -143,7 +145,7 @@ function processMessage($message) {
 }
 
 
-define('WEBHOOK_URL', 'https://my-site.example.com/secret-path-for-webhooks/');
+define('WEBHOOK_URL', $envs['WEBHOOK']);
 
 if (php_sapi_name() == 'cli') {
   // if run from console, set or delete webhook
