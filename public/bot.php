@@ -12,7 +12,7 @@ function processMessage($message)
     // process incoming message
     $message_id = $message['message_id'];
     $chat_id = $message['chat']['id'];
-    $username = $message['message_id']['username'];
+    $username = $message['message_id']['forward_from_message_id'];
     $original = $message['chat']['id']['forward_from_message_id'];
 
 
