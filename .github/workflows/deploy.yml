@@ -14,7 +14,6 @@ jobs:
         password: ${{ secrets.SSH_PASSWORD }}
         port: ${{ secrets.SSH_PORT }}
         script: |
-          mkdir -p /var/www/bots.lucasbrum.net/
-          git clone git@github.com:sistematico/spamsentrybot.git /var/www/bots.lucasbrum.net/spamsentrybot
           cd /var/www/bots.lucasbrum.net/spamsentrybot
+          git checkout HEAD^ logs/bot.log
           git pull
