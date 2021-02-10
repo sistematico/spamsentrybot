@@ -13,7 +13,7 @@ function processMessage($message)
     $message_id = $message['message_id'];
     $chat_id = $message['chat']['id'];
     $username = $message['user_id']['username'];
-    $original = $message['forward_from_message_id'];
+    $original = $message['message_id']['forward_from_message_id'];
 
 
     if (isset($message['text'])) {
