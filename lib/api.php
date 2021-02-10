@@ -40,8 +40,7 @@ function exec_curl_request($handle)
     curl_close($handle);
 
     if ($http_code >= 500) {
-        // do not wat to DDOS server if something goes wrong
-        sleep(10);
+        sleep(10); // do not wat to DDOS server if something goes wrong
         return false;
     } else if ($http_code != 200) {
         $response = json_decode($response, true);
