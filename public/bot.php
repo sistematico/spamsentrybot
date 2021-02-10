@@ -14,7 +14,7 @@ function processMessage($message)
     $chat_id = $message['chat']['id'];
     $username = $message['user_id']['username'];
     $original = $message['forward_from_message_id'];
-    
+
 
     if (isset($message['text'])) {
         $text = $message['text'];
@@ -22,7 +22,10 @@ function processMessage($message)
         switch ($text) {
             case (strpos($text, "/start") === 0):
                 break;
-            case 'Olá':
+            case 'Oláa':
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Olá {$username}!\n\n\nOriginal: ${original}\n\nMessage ID: ${message_id}\n\nEm que posso te ajudar!?"));
+                break;
+            case 'Debug':
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Olá {$username}!\n\n\nOriginal: ${original}\n\nMessage ID: ${message_id}\n\nEm que posso te ajudar!?"));
                 break;
             default:
