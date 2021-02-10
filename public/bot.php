@@ -20,7 +20,7 @@ function processMessage($message)
             case (strpos($text, "/start") === 0):
                 break;
             case 'Olá':
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => 'Olá!\nEm que posso te ajudar!?'));
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Olá!\nEm que posso te ajudar!?"));
                 break;
             default:
                 break;
