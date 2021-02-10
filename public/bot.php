@@ -16,29 +16,37 @@ function processMessage($message)
     if (isset($message['text'])) {
         $text = $message['text'];
 
-        if (strpos($text, "/start") === 0) {
-            apiRequestJson("sendMessage", array('chat_id' => $chat_id, "text" => 'Hello', 'reply_markup' => array(
-                'keyboard' => array(array('Hello', 'Hi')),
-                'one_time_keyboard' => true,
-                'resize_keyboard' => true
-            )));
-        } else if ($text === "Hello" || $text === "Hi") {
-            apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => 'Nice to meet you'));
-        } else if (strpos($text, "/stop") === 0) {
-            // stop now
-        } else {
-            //apiRequestWebhook("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => 'Cool'));
+        switch ($text) {
+            case (strpos($text, "/start") === 0):
+                break;
+            case 'Olá':
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => 'Olá!\nEm que posso te ajudar!?'));
+                break;
+            default:
+                break;
         }
+
+        // if (strpos($text, "/start") === 0) {
+        //     apiRequestJson("sendMessage", array('chat_id' => $chat_id, "text" => 'Hello', 'reply_markup' => array(
+        //         'keyboard' => array(array('Hello', 'Hi')),
+        //         'one_time_keyboard' => true,
+        //         'resize_keyboard' => true
+        //     )));
+        // } else if ($text === "Hello" || $text === "Hi") {
+        //     apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => 'Nice to meet you'));
+        // } else if (strpos($text, "/stop") === 0) {
+        //     // stop now
+        // } else {
+        //     //apiRequestWebhook("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => 'Cool'));
+        // }
     }
 }
 
 $content = file_get_contents("php://input");
 $update = json_decode($content, true);
 
-if (!$update) {
-    exit; // receive wrong update, must not happen
-}
+if (!$update)
+    exit;
 
-if (isset($update["message"])) {
+if (isset($update["message"]))
     processMessage($update["message"]);
-}
