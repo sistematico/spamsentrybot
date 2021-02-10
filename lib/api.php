@@ -1,6 +1,5 @@
 <?php
 
-
 function apiRequestWebhook($method, $parameters)
 {
     if (!is_string($method)) {
@@ -117,4 +116,10 @@ function apiRequestJson($method, $parameters)
     curl_setopt($handle, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
 
     return exec_curl_request($handle);
+}
+
+if (php_sapi_name() == 'cli') {
+    // if run from console, set or delete webhook
+    apiRequest('setWebhook', array('url' => isset($argv[1]) && $argv[1] == 'delete' ? '' : WEBHOOK_URL));
+    exit;
 }
