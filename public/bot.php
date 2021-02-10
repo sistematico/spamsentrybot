@@ -57,9 +57,9 @@ function exec_curl_request($handle)
         return false;
     } else {
         $response = json_decode($response, true);
-        if (isset($response['description'])) {
-            error_log("Request was successful: {$response['description']}\n");
-        }
+        //if (isset($response['description'])) {
+            //error_log("Request was successful: {$response['description']}\n", 3, "../logs/bot.log");
+        //}
         $response = $response['result'];
     }
 
@@ -69,7 +69,7 @@ function exec_curl_request($handle)
 function apiRequest($method, $parameters)
 {
     if (!is_string($method)) {
-        error_log("Method name must be a string\n");
+        error_log("Method name must be a string\n", 3, "../logs/bot.log");
         return false;
     }
 
