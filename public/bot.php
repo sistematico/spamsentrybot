@@ -41,16 +41,6 @@ function processMessage($message)
                 //apiRequest("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => "Tomei a liberdade de apagar esta mensagem.\n\nID: ${reply_id}\n\nAdmin: ${user_id}${user_id2}\n\nRole: ${role}\n\nUsuário original: $originalUsername"));
                 apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));                
                 break;
-            case (strpos($text, '/debug') === 0):
-                if (isset($originalUsername)) {
-                    apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Username: $originalUsername"));
-                } else {
-                    apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Username: $username"));
-                }
-                break;
-            case (strpos($text, '/json') === 0):
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "DUMP: " . implode(",",$message)));
-                break;
             case (strpos($text, '/member') === 0):
                 //apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Member: " . implode(",",$muser) . $member['user'] . $member['status']));
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Member: " . implode(",",$muser)));
