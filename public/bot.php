@@ -13,8 +13,8 @@ function processMessage($message)
     // process incoming message
     $chat_id = $message['chat']['id'];
     $message_id = $message['message_id'];
-    $user_id = $message['from']['id'];
     $reply_id = $message['reply_to_message']['message_id'];
+    $user_id = $message['from']['id'];
 
     $username = (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['first_name'] . ' ' . $message['from']['last_name']);
     $originalUsername = (isset($message['reply_to_message']['from']['username']) ? $message['reply_to_message']['from']['username'] : $message['reply_to_message']['from']['first_name'] . ' ' . $message['reply_to_message']['from']['last_name'] );
@@ -25,9 +25,12 @@ function processMessage($message)
         $role = $member['status'];
 
         switch ($text) {
-            case '/spam':
-                apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Olá {$username}(ID: {$user_id})!\n\nEm que posso te ajudar!?"));
+            case (strpos($text, '/debug') === 0):
+                // apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Chat ID: {$chat_id}"));
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Message ID: {$message_id}"));
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "User ID: {$user_id}"));
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Reply ID: {$reply_id}"));
                 break;
             case (strpos($text, '/del') === 0):
                 #if ($role !== 'creator' || $role !== 'administrator') {
