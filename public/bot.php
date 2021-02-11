@@ -12,7 +12,7 @@ function processMessage($message)
     // process incoming message
     $message_id = $message['message_id'];
     $chat_id = $message['chat']['id'];
-    $username = $message['user']['id']['username'];
+    $username = $message['user_id']['username'];
 
 
     if (isset($message['text'])) {
