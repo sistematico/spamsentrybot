@@ -15,8 +15,8 @@ function processMessage($message)
     $user_id = $message['user_id'];
     $user_id2 = $message['user']['id'];
     $reply_id = $message['reply_to_message']['message_id'];
-    $username = '@' . (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['first_name'] . ' ' . $message['from']['last_name']);
-    $originalUsername = '@' . $message['reply_to_message']['from']['username'];
+    $username = (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['first_name'] . ' ' . $message['from']['last_name']);
+    $originalUsername = $message['reply_to_message']['from']['username'];
     $role = $message['user']['id']['status'];
 
     if (isset($message['text'])) {
@@ -36,7 +36,11 @@ function processMessage($message)
                 apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));                
                 break;
             case 'Debug':
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Username: $username"));
+                if (isset($originalUsername)) {
+                    apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Username: $originalUsername"));
+                } else {
+                    apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Username: $username"));
+                }
                 break;
             default:
                 break;
