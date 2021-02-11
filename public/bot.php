@@ -25,29 +25,29 @@ function processMessage($message)
         $text = $message['text'];
 
         switch ($text) {
-            case (strpos($text, "/start") === 0):
+            case '@spamsentrybot':
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Olá {$username}!\n\nEm que posso te ajudar!?"));
                 break;
-            case (strpos($text, "/del") === 0):
+            case (strpos($text, '/del') === 0):
                 if ($role !== 'creator' || $role !== 'administrator')
                     break;
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
-                //apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => "Tomei a liberdade de apagar esta mensagem.\n\nID: ${reply_id}\n\nAdmin: ${user_id}${user_id2}\n\nRole: ${role}\n\nUsuário original: $originalUsername"));
+                apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
+                //apiRequest("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => "Tomei a liberdade de apagar esta mensagem.\n\nID: ${reply_id}\n\nAdmin: ${user_id}${user_id2}\n\nRole: ${role}\n\nUsuário original: $originalUsername"));
                 apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));                
                 break;
-            case (strpos($text, "/debug") === 0):
+            case (strpos($text, '/debug') === 0):
                 if (isset($originalUsername)) {
                     apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Username: $originalUsername"));
                 } else {
                     apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Username: $username"));
                 }
                 break;
-            case (strpos($text, "/json") === 0):
+            case (strpos($text, '/json') === 0):
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "DUMP: " . implode(",",$message)));
                 break;
-            case (strpos($text, "/logs") === 0):
+            case (strpos($text, '/logs') === 0):
                 $logfile = fopen("../logs/bot.log", "r") or die("Unable to open file!");
                 $log = fread($logfile,filesize("../logs/bot.log"));
                 fclose($logfile);
