@@ -25,6 +25,7 @@ function processMessage($message)
         $text = $message['text'];
         $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
         $role = $member['status'];
+        $muser = $member['user'];
 
         switch ($text) {
             case '/spam':
@@ -50,7 +51,7 @@ function processMessage($message)
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "DUMP: " . implode(",",$message)));
                 break;
             case (strpos($text, '/member') === 0):
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Member: " . $member['user'] . $member['status']));
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Member: " . implode(",",$muser) . $member['user'] . $member['status']));
                 break;
             case (strpos($text, '/logs') === 0):
                 $logfile = fopen("../logs/bot.log", "r") or die("Unable to open file!");
