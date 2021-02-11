@@ -29,7 +29,7 @@ function processMessage($message)
 
             case (strpos($text, "/del") === 0):
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => "Tomei a liberdade de apagar esta mensagem ID: ${reply_id}"));
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => "Tomei a liberdade de apagar esta mensagem.\n\nID: ${reply_id}\n\nUsuário original: $originalUsername"));
                 apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));                
                 //apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Olá {$username}{$username2}!\n\nEm que posso te ajudar!?"));
                 break;
