@@ -6,9 +6,9 @@ define('LOGPATH', $envs['LOGPATH']);
 define('API_URL', 'https://api.telegram.org/bot' . BOT_TOKEN . '/');
 define('WEBHOOK_URL', $envs['WEBHOOK']);
 
-// require_once '../lib/db.php';
 require_once '../lib/log.php';
 require_once '../lib/api.php';
+require_once '../lib/db.php';
 
 function delete($member, $message_id, $chat_id, $reply_id = null)
 {
