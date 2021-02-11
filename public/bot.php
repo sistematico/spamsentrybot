@@ -30,12 +30,11 @@ function processMessage($message)
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Olá {$username}(ID: {$user_id})!\n\nEm que posso te ajudar!?"));
                 break;
             case (strpos($text, '/del') === 0):
-                if ($role !== 'creator' || $role !== 'administrator')
-                    break;
-                apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
-                apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
-                //apiRequest("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => "Tomei a liberdade de apagar esta mensagem.\n\nID: ${reply_id}\n\nAdmin: ${user_id}${user_id2}\n\nRole: ${role}\n\nUsuário original: $originalUsername"));
-                apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));                
+                #if ($role !== 'creator' || $role !== 'administrator') {
+                    //apiRequest("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => "Tomei a liberdade de apagar esta mensagem.\n\nID: ${reply_id}\n\nAdmin: ${user_id}${user_id2}\n\nRole: ${role}\n\nUsuário original: $originalUsername"));
+                    apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));                
+                    apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
+                #}
                 break;
             case (strpos($text, '/member') === 0):
                 //apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Member: " . implode(",",$muser) . $member['user'] . $member['status']));
