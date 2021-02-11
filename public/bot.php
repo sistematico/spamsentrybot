@@ -43,7 +43,7 @@ function processMessage($message)
                 }
                 break;
             case (strpos($text, "/json") === 0):
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "DUMP: " . print_r($message)));
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "DUMP: " . implode(",",$message)));
                 break;
             default:
                 break;
