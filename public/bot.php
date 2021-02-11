@@ -39,7 +39,7 @@ function processMessage($message)
                 break;
             case (strpos($text, '/member') === 0):
                 //apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Member: " . implode(",",$muser) . $member['user'] . $member['status']));
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Role: {$status}"));
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Role: {$role}"));
                 break;
             case (strpos($text, '/logs') === 0):
                 // Conta as linhas...
