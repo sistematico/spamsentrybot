@@ -24,6 +24,7 @@ function processMessage($message)
 
     if (isset($message['text'])) {
         $text = $message['text'];
+        $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "message_id" => $message_id));
 
         switch ($text) {
             case '@spamsentrybot':
@@ -47,6 +48,9 @@ function processMessage($message)
                 break;
             case (strpos($text, '/json') === 0):
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "DUMP: " . implode(",",$message)));
+                break;
+            case (strpos($text, '/member') === 0):
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "DUMP: " . implode(",",$member)));
                 break;
             case (strpos($text, '/logs') === 0):
                 $logfile = fopen("../logs/bot.log", "r") or die("Unable to open file!");
