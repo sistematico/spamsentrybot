@@ -13,8 +13,7 @@ function processMessage($message)
     // process incoming message
     $chat_id = $message['chat']['id'];
     $message_id = $message['message_id'];
-    $user_id = $message['user_id'];
-    $user_id2 = $message['user']['id'];
+    $user_id = $message['from']['id'];
     $reply_id = $message['reply_to_message']['message_id'];
     $username = (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['first_name'] . ' ' . $message['from']['last_name']);
     $originalUsername = (isset($message['reply_to_message']['from']['username']) ? $message['reply_to_message']['from']['username'] : $message['reply_to_message']['from']['first_name'] . ' ' . $message['reply_to_message']['from']['last_name'] );
@@ -24,7 +23,7 @@ function processMessage($message)
 
     if (isset($message['text'])) {
         $text = $message['text'];
-        $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "message_id" => $message_id));
+        $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
 
         switch ($text) {
             case '@spamsentrybot':
