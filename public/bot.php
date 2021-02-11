@@ -16,7 +16,7 @@ function processMessage($message)
     $user_id2 = $message['user']['id'];
     $reply_id = $message['reply_to_message']['message_id'];
     $username = (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['first_name'] . ' ' . $message['from']['last_name']);
-    $originalUsername = $message['reply_to_message']['from']['username'];
+    $originalUsername = (isset($message['reply_to_message']['from']['username']) ? $message['reply_to_message']['from']['username'] : $message['reply_to_message']['from']['first_name'] . ' ' . $message['reply_to_message']['from']['last_name'] );
     $role = $message['user']['id']['status'];
 
     error_log("Message Dump: " . implode(",", array_keys($message)), 3, "../logs/bot.log");
