@@ -45,6 +45,12 @@ function processMessage($message)
             case (strpos($text, "/json") === 0):
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "DUMP: " . implode(",",$message)));
                 break;
+            case (strpos($text, "/logs") === 0):
+                $logfile = fopen("../logs/bot.log", "r") or die("Unable to open file!");
+                $log = fread($logfile,filesize("../logs/bot.log"));
+                fclose($logfile);
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Logs: " . $log));
+                break;
             default:
                 break;
         }
