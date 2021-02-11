@@ -1,6 +1,6 @@
 <?php
 
-function log()
+function readLog()
 {
     $linecount = 0;
     $handle = fopen(LOGPATH, "r");

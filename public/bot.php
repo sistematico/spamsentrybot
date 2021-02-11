@@ -43,16 +43,19 @@ function processMessage($message)
         switch ($text) {
             case (strpos($text, '/debug') === 0):
                 // apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Chat ID: {$chat_id}"));
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Message ID: {$message_id}"));
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "User ID: {$user_id}"));
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Reply ID: {$reply_id}"));
+                $msg = "Chat ID: {$chat_id}";
+                $msg .= "Message ID: {$message_id}";
+                $msg .= "User ID: {$user_id}";
+                $msg .= "Reply ID: {$reply_id}";
+
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $msg));
+                
                 break;
             case (strpos($text, '/del') === 0):
                 delete($member, $message_id, $chat_id, $reply_id);
                 break;
             case (strpos($text, '/logs') === 0):
-                $log = log();
+                $log = readLog();
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Logs: {$log['log']}\n\n{$log['linhas']} linhas."));
                 break;
             default:
