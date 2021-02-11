@@ -23,10 +23,10 @@ function processMessage($message)
         $text = $message['text'];
         $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
         $role = $member['user']['status'];
-        $muser = $member['user'];
+        $muser = $member['user']['status'];
 
-        error_log(implode(",", array_keys($member)), 3, "../logs/bot.log");
-        error_log(implode(",", $member), 3, "../logs/bot.log");
+        error_log(implode(",", array_keys($muser)), 3, "../logs/bot.log");
+        error_log(implode(",", $muser), 3, "../logs/bot.log");
 
         switch ($text) {
             case '/spam':
