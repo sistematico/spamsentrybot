@@ -58,9 +58,12 @@ function processMessage($message)
                 $log = readLog();
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Logs: {$log['log']}\n\n{$log['linhas']} linhas."));
                 break;
-
             case (strpos($text, '/ban') === 0):
+                //requisicao("sendVideo", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "video" => CABRON_URL . 'vid/fogo.mp4'));
                 apiRequest("sendSticker", array('chat_id' => $chat_id, "sticker" => 'CAACAgEAAxkBAAEB371gJb_kkLwJ8bU0Z2_MM41hn8ZRsQACPAADnjOcH14Lzxv4uFR0HgQ'));
+                break;
+            case (strpos($text, '/lol') === 0):
+                apiRequest("sendAnimation", array('chat_id' => $chat_id, "animation" => '../vid/no.mp4'));
                 break;
             default:
                 break;
