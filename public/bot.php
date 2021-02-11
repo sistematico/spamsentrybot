@@ -35,9 +35,6 @@ function processMessage($message)
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => "Tomei a liberdade de apagar esta mensagem.\n\nID: ${reply_id}\n\nAdmin: ${user_id}${user_id2}\n\nRole: ${role}\n\nUsuário original: $originalUsername"));
                 apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));                
                 break;
-            case 'Oláa':
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Olá {$username}!\n\nMessage ID: ${message_id}\n\nEm que posso te ajudar!?"));
-                break;
             case 'Debug':
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Username: $username"));
                 break;
