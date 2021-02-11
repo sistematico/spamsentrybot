@@ -19,6 +19,8 @@ function processMessage($message)
     $originalUsername = $message['reply_to_message']['from']['username'];
     $role = $message['user']['id']['status'];
 
+    error_log("Message Dump: " . print_r($message), 3, "../logs/bot.log");
+
     if (isset($message['text'])) {
         $text = $message['text'];
 
