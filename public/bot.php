@@ -10,9 +10,12 @@ require_once '../lib/api.php';
 function processMessage($message)
 {
     // process incoming message
-    $message_id = $message['message_id'];
-    $reply_id = $message['reply_to_message']['message_id'];
     $chat_id = $message['chat']['id'];
+    $message_id = $message['message_id'];
+    $user_id = $message['user_id'];
+    $user_id2 = $message['user']['id'];
+
+    $reply_id = $message['reply_to_message']['message_id'];
     $username = '@' . (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['full_name']);
     $originalUsername = '@' . $message['reply_to_message']['from']['username'];
     $role = $message['user_id']['status'];
@@ -30,7 +33,7 @@ function processMessage($message)
                     break;
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
                 //apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => "Tomei a liberdade de apagar esta mensagem.\n\nID: ${reply_id}\n\nUsuário original: $originalUsername"));
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => "Tomei a liberdade de apagar esta mensagem.\n\nID: ${reply_id}\n\nAdmin: ${user_id}\n\nRole: ${role}\n\nUsuário original: $originalUsername"));
                 apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));                
                 break;
             case 'Oláa':
