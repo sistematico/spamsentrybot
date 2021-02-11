@@ -15,7 +15,7 @@ function processMessage($message)
     $user_id = $message['user_id'];
     $user_id2 = $message['user']['id'];
     $reply_id = $message['reply_to_message']['message_id'];
-    $username = '@' . (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['full_name']);
+    $username = '@' . (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['first_name'] . ' ' . $message['from']['last_name']);
     $originalUsername = '@' . $message['reply_to_message']['from']['username'];
     $role = $message['user']['id']['status'];
 
