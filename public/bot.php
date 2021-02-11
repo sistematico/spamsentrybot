@@ -50,7 +50,7 @@ function processMessage($message)
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "DUMP: " . implode(",",$message)));
                 break;
             case (strpos($text, '/member') === 0):
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "DUMP: " . implode(",",$member)));
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Member: " . implode(",",$member)));
                 break;
             case (strpos($text, '/logs') === 0):
                 $logfile = fopen("../logs/bot.log", "r") or die("Unable to open file!");

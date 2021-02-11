@@ -24,7 +24,7 @@ function apiRequestWebhook($method, $parameters)
     return true;
 }
 
-function exec_curl_request($handle)
+function curlRequest($handle)
 {
     $response = curl_exec($handle);
 
@@ -87,7 +87,7 @@ function apiRequest($method, $parameters)
     curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, 5);
     curl_setopt($handle, CURLOPT_TIMEOUT, 60);
 
-    return exec_curl_request($handle);
+    return curlRequest($handle);
 }
 
 function apiRequestJson($method, $parameters)
@@ -114,11 +114,10 @@ function apiRequestJson($method, $parameters)
     curl_setopt($handle, CURLOPT_POSTFIELDS, json_encode($parameters));
     curl_setopt($handle, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
 
-    return exec_curl_request($handle);
+    return curlRequest($handle);
 }
 
 if (php_sapi_name() == 'cli') {
-    // if run from console, set or delete webhook
     apiRequest('setWebhook', array('url' => isset($argv[1]) && $argv[1] == 'delete' ? '' : WEBHOOK_URL));
     exit;
 }
