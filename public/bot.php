@@ -22,11 +22,7 @@ function processMessage($message)
     if (isset($message['text'])) {
         $text = $message['text'];
         $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
-        $role = $member['user']['status'];
-        $muser = $member['user']['status'];
-
-        error_log(implode(",", array_keys($muser)), 3, "../logs/bot.log");
-        error_log(implode(",", $muser), 3, "../logs/bot.log");
+        $role = $member['status'];
 
         switch ($text) {
             case '/spam':
@@ -43,7 +39,7 @@ function processMessage($message)
                 break;
             case (strpos($text, '/member') === 0):
                 //apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Member: " . implode(",",$muser) . $member['user'] . $member['status']));
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Member: " . implode(",",$muser)));
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Role: {$status}"));
                 break;
             case (strpos($text, '/logs') === 0):
                 // Conta as linhas...
