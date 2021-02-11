@@ -25,8 +25,8 @@ function processMessage($message)
         $role = $member['user']['status'];
         $muser = $member['user'];
 
-        error_log(implode(",", array_keys($message)), 3, "../logs/bot.log");
-        error_log(implode(",", $message), 3, "../logs/bot.log");
+        error_log(implode(",", array_keys($member)), 3, "../logs/bot.log");
+        error_log(implode(",", $member), 3, "../logs/bot.log");
 
         switch ($text) {
             case '/spam':
