@@ -19,13 +19,14 @@ function processMessage($message)
     $username = (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['first_name'] . ' ' . $message['from']['last_name']);
     $originalUsername = (isset($message['reply_to_message']['from']['username']) ? $message['reply_to_message']['from']['username'] : $message['reply_to_message']['from']['first_name'] . ' ' . $message['reply_to_message']['from']['last_name'] );
 
-    //error_log(implode(",", array_keys($message)), 3, "../logs/bot.log");
-
     if (isset($message['text'])) {
         $text = $message['text'];
         $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
         $role = $member['user']['status'];
         $muser = $member['user'];
+
+        error_log(implode(",", array_keys($message)), 3, "../logs/bot.log");
+        error_log(implode(",", $message), 3, "../logs/bot.log");
 
         switch ($text) {
             case '/spam':
