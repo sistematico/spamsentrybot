@@ -33,7 +33,7 @@ function processMessage($message)
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Reply ID: {$reply_id}"));
                 break;
             case (strpos($text, '/del') === 0):
-                if ($role !== 'creator' || $role !== 'administrator') {
+                if ($role === 'creator' || $role === 'administrator') {
                     if (isset($reply_id) && !empty(isset($reply_id))) {
                         apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));                
                         apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
