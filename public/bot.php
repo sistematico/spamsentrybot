@@ -56,6 +56,7 @@ function processMessage($message)
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Member: " . implode(",",$muser)));
                 break;
             case (strpos($text, '/logs') === 0):
+                // Conta as linhas...
                 $linecount = 0;
                 $handle = fopen("../logs/bot.log", "r");
                 while(!feof($handle)){
@@ -65,9 +66,11 @@ function processMessage($message)
                 fclose($handle);
                 $linhas = $linecount;
 
+                // Lê os logs
                 $logfile = fopen("../logs/bot.log", "r") or die("Unable to open file!");
                 $log = fread($logfile,filesize("../logs/bot.log"));
                 fclose($logfile);
+
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Logs: " . $log . "\n\n{$linhas} linhas."));
                 break;
             default:
