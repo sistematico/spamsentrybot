@@ -11,7 +11,7 @@ require_once '../lib/api.php';
 function delete($member, $message_id, $chat_id, $reply_id = null)
 {
     if ($member['status'] === 'creator' || $member['status'] === 'administrator') {
-        if (isset($reply_id) && !empty(isset($reply_id))) {
+        if ($reply_id !== null) {
             apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));                
             apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
         } else {
@@ -27,7 +27,7 @@ function processMessage($message)
     // process incoming message
     $chat_id = $message['chat']['id'];
     $message_id = $message['message_id'];
-    $reply_id = $message['reply_to_message']['message_id'];
+    $reply_id = (isset($message['reply_to_message']['message_id']) ? $message['reply_to_message']['message_id'] : null);
     $user_id = $message['from']['id'];
 
     $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
@@ -47,7 +47,7 @@ function processMessage($message)
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Reply ID: {$reply_id}"));
                 break;
             case (strpos($text, '/del') === 0):
-
+                delete($member, $message_id, $chat_id, $reply_id);
                 break;
             case (strpos($text, '/logs') === 0):
                 // Conta as linhas...
