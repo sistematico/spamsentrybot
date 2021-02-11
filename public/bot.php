@@ -11,11 +11,9 @@ function processMessage($message)
 {
     // process incoming message
     $message_id = $message['message_id'];
-    //$reply_id = $message['reply_to_message']['id'];
     $reply_id = $message['reply_to_message']['message_id'];
-    //$reply_id3 = $message['message_id']['reply_to_message'];
     $chat_id = $message['chat']['id'];
-    $username = '@' . $message['from']['username'];
+    $username = '@' . (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['full_name']);
     $originalUsername = '@' . $message['reply_to_message']['from']['username'];
 
     if (isset($message['text'])) {
@@ -26,14 +24,12 @@ function processMessage($message)
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Olá {$username}!\n\nEm que posso te ajudar!?"));
                 break;
-
             case (strpos($text, "/del") === 0):
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
+                //apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => "Tomei a liberdade de apagar esta mensagem.\n\nID: ${reply_id}\n\nUsuário original: $originalUsername"));
                 apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));                
-                //apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Olá {$username}{$username2}!\n\nEm que posso te ajudar!?"));
                 break;
-
             case 'Oláa':
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Olá {$username}!\n\nMessage ID: ${message_id}\n\nEm que posso te ajudar!?"));
                 break;
