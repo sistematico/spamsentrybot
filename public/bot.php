@@ -15,6 +15,7 @@ function processMessage($message)
     $chat_id = $message['chat']['id'];
     $username = '@' . (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['full_name']);
     $originalUsername = '@' . $message['reply_to_message']['from']['username'];
+    $role = $message['user_id']['status'];
 
     if (isset($message['text'])) {
         $text = $message['text'];
