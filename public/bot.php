@@ -53,7 +53,7 @@ function processMessage($message)
                 break;
             case (strpos($text, '/logs') === 0):
                 $log = log();
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Logs: " . $log['log'] . "\n\n{$log['linhas']} linhas."));
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Logs: {$log['log']}\n\n{$log['linhas']} linhas."));
                 break;
             default:
                 break;
