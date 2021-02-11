@@ -8,6 +8,11 @@ define('WEBHOOK_URL', $envs['WEBHOOK']);
 // require_once '../lib/db.php';
 require_once '../lib/api.php';
 
+function delete($ctx)
+{
+
+}
+
 function processMessage($message)
 {
     // process incoming message
@@ -33,7 +38,7 @@ function processMessage($message)
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Reply ID: {$reply_id}"));
                 break;
             case (strpos($text, '/del') === 0):
-                if ($role === 'creator' || $role === 'administrator') {
+                if ($member['status'] === 'creator' || $member['status'] === 'administrator') {
                     if (isset($reply_id) && !empty(isset($reply_id))) {
                         apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));                
                         apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
