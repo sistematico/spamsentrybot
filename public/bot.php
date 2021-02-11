@@ -17,7 +17,7 @@ function processMessage($message)
     $reply_id = $message['reply_to_message']['message_id'];
     $username = (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['first_name'] . ' ' . $message['from']['last_name']);
     $originalUsername = (isset($message['reply_to_message']['from']['username']) ? $message['reply_to_message']['from']['username'] : $message['reply_to_message']['from']['first_name'] . ' ' . $message['reply_to_message']['from']['last_name'] );
-    $role = $message['user']['id']['status'];
+    $role = $message['from']['id']['status'];
 
     error_log("Message Dump: " . implode(",", array_keys($message)), 3, "../logs/bot.log");
 
@@ -26,7 +26,7 @@ function processMessage($message)
         $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
 
         switch ($text) {
-            case 'spamsentrybot':
+            case '/spam':
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Olá {$username}(ID: {$user_id})!\n\nEm que posso te ajudar!?"));
                 break;
