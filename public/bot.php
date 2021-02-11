@@ -21,7 +21,8 @@ function processMessage($message)
 
         switch ($text) {
             case (strpos($text, "/start") === 0):
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Olá {$username} {$originalUsername}!\n\nEm que posso te ajudar!?"));
+                apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Olá {$username}!\n\nEm que posso te ajudar!?"));
                 break;
 
             case (strpos($text, "/del") === 0):
