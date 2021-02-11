@@ -2,11 +2,12 @@
 
 $envs = parse_ini_file('../.env.local');
 define('BOT_TOKEN', $envs['TOKEN']);
-define('LOGPATH', $envs['LOG_PATH']);
+define('LOGPATH', $envs['LOGPATH']);
 define('API_URL', 'https://api.telegram.org/bot' . BOT_TOKEN . '/');
 define('WEBHOOK_URL', $envs['WEBHOOK']);
 
 // require_once '../lib/db.php';
+require_once '../lib/log.php';
 require_once '../lib/api.php';
 
 function delete($member, $message_id, $chat_id, $reply_id = null)
@@ -51,8 +52,8 @@ function processMessage($message)
                 delete($member, $message_id, $chat_id, $reply_id);
                 break;
             case (strpos($text, '/logs') === 0):
-
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Logs: " . $log . "\n\n{$linhas} linhas."));
+                $log = log();
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Logs: " . $log['log'] . "\n\n{$log['linhas']} linhas."));
                 break;
             default:
                 break;
