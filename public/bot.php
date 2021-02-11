@@ -21,13 +21,13 @@ function processMessage($message)
     $reply_id = $message['reply_to_message']['message_id'];
     $user_id = $message['from']['id'];
 
+    $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
+
     $username = (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['first_name'] . ' ' . $message['from']['last_name']);
     $originalUsername = (isset($message['reply_to_message']['from']['username']) ? $message['reply_to_message']['from']['username'] : $message['reply_to_message']['from']['first_name'] . ' ' . $message['reply_to_message']['from']['last_name'] );
 
     if (isset($message['text'])) {
         $text = $message['text'];
-        $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
-        $role = $member['status'];
 
         switch ($text) {
             case (strpos($text, '/debug') === 0):
@@ -48,10 +48,6 @@ function processMessage($message)
                 } else {
                     apiRequest("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => "Comando somente para admins."));
                 }
-                break;
-            case (strpos($text, '/member') === 0):
-                //apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Member: " . implode(",",$muser) . $member['user'] . $member['status']));
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Role: {$role}"));
                 break;
             case (strpos($text, '/logs') === 0):
                 // Conta as linhas...
