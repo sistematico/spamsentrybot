@@ -8,9 +8,18 @@ define('WEBHOOK_URL', $envs['WEBHOOK']);
 // require_once '../lib/db.php';
 require_once '../lib/api.php';
 
-function delete($ctx)
+function delete($member, $message_id, $chat_id, $reply_id = null)
 {
-
+    if ($member['status'] === 'creator' || $member['status'] === 'administrator') {
+        if (isset($reply_id) && !empty(isset($reply_id))) {
+            apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));                
+            apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
+        } else {
+            apiRequest("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => "Uso incorreto, responda a mensagem que deseja apagar com a palavra /del"));
+        }
+    } else {
+        apiRequest("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => "Comando somente para admins."));
+    }
 }
 
 function processMessage($message)
@@ -38,16 +47,7 @@ function processMessage($message)
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Reply ID: {$reply_id}"));
                 break;
             case (strpos($text, '/del') === 0):
-                if ($member['status'] === 'creator' || $member['status'] === 'administrator') {
-                    if (isset($reply_id) && !empty(isset($reply_id))) {
-                        apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));                
-                        apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
-                    } else {
-                        apiRequest("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => "Uso incorreto, responda a mensagem que deseja apagar com a palavra /del"));
-                    }
-                } else {
-                    apiRequest("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => "Comando somente para admins."));
-                }
+
                 break;
             case (strpos($text, '/logs') === 0):
                 // Conta as linhas...
