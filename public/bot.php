@@ -2,6 +2,7 @@
 
 $envs = parse_ini_file('../.env.local');
 define('BOT_TOKEN', $envs['TOKEN']);
+define('LOGPATH', $envs['LOG_PATH']);
 define('API_URL', 'https://api.telegram.org/bot' . BOT_TOKEN . '/');
 define('WEBHOOK_URL', $envs['WEBHOOK']);
 
@@ -50,20 +51,6 @@ function processMessage($message)
                 delete($member, $message_id, $chat_id, $reply_id);
                 break;
             case (strpos($text, '/logs') === 0):
-                // Conta as linhas...
-                $linecount = 0;
-                $handle = fopen("../logs/bot.log", "r");
-                while(!feof($handle)){
-                  $line = fgets($handle);
-                  $linecount++;
-                }                
-                fclose($handle);
-                $linhas = $linecount;
-
-                // Lê os logs
-                $logfile = fopen("../logs/bot.log", "r") or die("Unable to open file!");
-                $log = fread($logfile,filesize("../logs/bot.log"));
-                fclose($logfile);
 
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Logs: " . $log . "\n\n{$linhas} linhas."));
                 break;
