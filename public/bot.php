@@ -5,6 +5,7 @@ define('BOT_TOKEN', $envs['TOKEN']);
 define('API_URL', 'https://api.telegram.org/bot' . BOT_TOKEN . '/');
 define('WEBHOOK_URL', $envs['WEBHOOK']);
 
+// require_once '../lib/db.php';
 require_once '../lib/api.php';
 
 function processMessage($message)
@@ -56,20 +57,6 @@ function processMessage($message)
             default:
                 break;
         }
-
-        // if (strpos($text, "/start") === 0) {
-        //     apiRequestJson("sendMessage", array('chat_id' => $chat_id, "text" => 'Hello', 'reply_markup' => array(
-        //         'keyboard' => array(array('Hello', 'Hi')),
-        //         'one_time_keyboard' => true,
-        //         'resize_keyboard' => true
-        //     )));
-        // } else if ($text === "Hello" || $text === "Hi") {
-        //     apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => 'Nice to meet you'));
-        // } else if (strpos($text, "/stop") === 0) {
-        //     // stop now
-        // } else {
-        //     //apiRequestWebhook("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => 'Cool'));
-        // }
     }
 }
 
