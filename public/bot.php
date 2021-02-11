@@ -58,6 +58,10 @@ function processMessage($message)
                 $log = readLog();
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Logs: {$log['log']}\n\n{$log['linhas']} linhas."));
                 break;
+
+            case (strpos($text, '/ban') === 0):
+                apiRequest("sendSticker", array('chat_id' => $chat_id, "sticker" => 'CAACAgEAAxkBAAEB371gJb_kkLwJ8bU0Z2_MM41hn8ZRsQACPAADnjOcH14Lzxv4uFR0HgQ'));
+                break;
             default:
                 break;
         }
