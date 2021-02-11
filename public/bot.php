@@ -27,7 +27,7 @@ function processMessage($message)
         switch ($text) {
             case '@spamsentrybot':
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Olá {$username}!\n\nEm que posso te ajudar!?"));
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Olá {$username}(ID: {$user_id}{$user_id2})!\n\nEm que posso te ajudar!?"));
                 break;
             case (strpos($text, '/del') === 0):
                 if ($role !== 'creator' || $role !== 'administrator')
