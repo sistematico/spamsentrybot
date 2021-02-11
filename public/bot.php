@@ -47,9 +47,7 @@ function processMessage($message)
                 $msg .= "Message ID: {$message_id}";
                 $msg .= "User ID: {$user_id}";
                 $msg .= "Reply ID: {$reply_id}";
-
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $msg));
-                
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $msg));                
                 break;
             case (strpos($text, '/del') === 0):
                 delete($member, $message_id, $chat_id, $reply_id);
