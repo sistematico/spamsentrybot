@@ -98,7 +98,7 @@ function processMessage($message)
             case (strpos($text, '/id') === 0):
                 $id = explode(' ', $text)[1];
                 if (isset($id) && !empty($id)) {
-                    $info = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $id));
+                    $info = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
                     error_log("--------   ID   ----------", 3, "../logs/bot.log");
                     error_log(implode(',', $info), 3, "../logs/bot.log");
                     error_log("--------  FIM ID  --------", 3, "../logs/bot.log");
