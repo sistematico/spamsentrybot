@@ -64,14 +64,16 @@ function processMessage($message)
 
         switch ($text) {
             case (strpos($text, '/debug') === 0):
-                apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
+                if ($member['status'] === 'creator' || $member['status'] === 'administrator') {
+                    apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
 
-                $msg = "Chat ID: {$chat_id}\n";
-                $msg .= "Message ID: {$message_id}\n";
-                $msg .= "User ID: {$user_id}\n";
-                $msg .= "Reply ID: {$reply_id}\n";
-                $msg .= "URL: " . BOT_URL;
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $msg));                
+                    $msg = "Chat ID: {$chat_id}\n";
+                    $msg .= "Message ID: {$message_id}\n";
+                    $msg .= "User ID: {$user_id}\n";
+                    $msg .= "Reply ID: {$reply_id}\n";
+                    $msg .= "URL: " . BOT_URL;
+                    apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $msg));     
+                }           
                 break;
             case (strpos($text, '/del') === 0):
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
