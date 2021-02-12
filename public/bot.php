@@ -32,9 +32,9 @@ function filterMessage($member, $message_id, $chat_id, $reply_id)
     }
 }
 
-function processDelete($member, $message_id, $chat_id, $reply_id)
+function processDelete($member, $message_id, $chat_id, $reply_id, $isAdmin = false)
 {
-    if ($member['status'] === 'creator' || $member['status'] === 'administrator') {
+    if ($isAdmin) {
         if ($reply_id !== null) {
             apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));                
             apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
@@ -53,8 +53,8 @@ function processMessage($message)
     $message_id = $message['message_id'];
     $reply_id = (isset($message['reply_to_message']['message_id']) ? $message['reply_to_message']['message_id'] : null);
     $user_id = $message['from']['id'];
-
     $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
+    $isAdmin = ($member['status'] === 'creator' || $member['status'] === 'administrator' ? true : false);
 
     $username = (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['first_name'] . ' ' . $message['from']['last_name']);
     $originalUsername = (isset($message['reply_to_message']['from']['username']) ? $message['reply_to_message']['from']['username'] : $message['reply_to_message']['from']['first_name'] . ' ' . $message['reply_to_message']['from']['last_name'] );
@@ -64,7 +64,7 @@ function processMessage($message)
 
         switch ($text) {
             case (strpos($text, '/debug') === 0):
-                if ($member['status'] === 'creator' || $member['status'] === 'administrator') {
+                if ($isAdmin) {
                     apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
 
                     $msg = "Chat ID: {$chat_id}\n";
@@ -78,7 +78,7 @@ function processMessage($message)
             case (strpos($text, '/del') === 0):
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
 
-                processDelete($member, $message_id, $chat_id, $reply_id);
+                processDelete($member, $message_id, $chat_id, $reply_id, $isAdmin);
                 break;
             case (strpos($text, '/logs') === 0):
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
