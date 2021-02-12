@@ -10,7 +10,14 @@ require_once '../lib/log.php';
 require_once '../lib/api.php';
 require_once '../lib/db.php';
 
-function delete($member, $message_id, $chat_id, $reply_id = null)
+function filterMessage($member, $message_id, $chat_id, $reply_id)
+{
+    if (strpos($a, 'are') !== false) {
+        echo 'true';
+    }
+}
+
+function processDelete($member, $message_id, $chat_id, $reply_id)
 {
     if ($member['status'] === 'creator' || $member['status'] === 'administrator') {
         if ($reply_id !== null) {
@@ -50,18 +57,18 @@ function processMessage($message)
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $msg));                
                 break;
             case (strpos($text, '/del') === 0):
-                delete($member, $message_id, $chat_id, $reply_id);
+                processDelete($member, $message_id, $chat_id, $reply_id);
                 break;
             case (strpos($text, '/logs') === 0):
                 $log = readLog();
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Logs: {$log['log']}\n\n{$log['linhas']} linhas."));
+                apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "Logs: {$log['log']}\n\n{$log['linhas']} linhas."));
                 break;
             case (strpos($text, '/ban') === 0):
                 //requisicao("sendVideo", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "video" => CABRON_URL . 'vid/fogo.mp4'));
-                apiRequest("sendSticker", array('chat_id' => $chat_id, "sticker" => 'CAACAgEAAxkBAAEB371gJb_kkLwJ8bU0Z2_MM41hn8ZRsQACPAADnjOcH14Lzxv4uFR0HgQ'));
+                apiRequest('sendSticker', array('chat_id' => $chat_id, 'sticker' => 'CAACAgEAAxkBAAEB371gJb_kkLwJ8bU0Z2_MM41hn8ZRsQACPAADnjOcH14Lzxv4uFR0HgQ'));
                 break;
             case (strpos($text, '/lol') === 0):
-                apiRequest("sendVideo", array('chat_id' => $chat_id, "video" => '../vid/no.mp4'));
+                apiRequest('sendVideo', array('chat_id' => $chat_id, 'video' => '../vid/no.mp4'));
                 break;
             default:
                 break;
