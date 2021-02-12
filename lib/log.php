@@ -13,9 +13,9 @@ function readLog()
 
     // $f = fopen(LOGPATH, 'rb');
     $lines = 0;
-    if ($f = fopen(LOGPATH, "r+")) {
+    if ($f = fopen(LOGPATH, "r")) {
         while (!feof($f)) {
-            $lines += substr_count(fread($f, 8192), "\n");
+            $lines = $lines + substr_count(fread($f, 8192), PHP_EOL);
         }
     }
     fclose($f);
