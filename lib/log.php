@@ -10,16 +10,8 @@ function readLog()
         }
         fclose($handle);
     }
-    $linhas = $linecount;
 
-    // $lines = 0;
-    // if ($f = fopen(LOGPATH, "r")) {
-    //     while (!feof($f)) {
-    //         $lines = $lines + substr_count(fread($f, 8192), PHP_EOL);
-    //     }
-    // }
-    // fclose($f);
-    // $linhas = $lines;
+    $linhas = $linecount;
 
     $logfile = fopen(LOGPATH, "r") or die("Unable to open file!");
     $log = fread($logfile, filesize(LOGPATH));
