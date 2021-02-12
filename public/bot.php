@@ -18,18 +18,18 @@ function identifyAt($string, $member, $chat)
     //curl -X POST "https://api.telegram.org/bot1658737482:AAGo_s34pSQ6acWrfXZM5gWZyJYiBdIblks/sendMessage" -d "chat_id=-1001325544995&text=my sample text"
     // {"ok":true,"result":{"message_id":325,"from":{"id":1658737482,"is_bot":true,"first_name":"SPAM Sentry Bot","username":"spamsentrybot"},"chat":{"id":-1001325544995,"title":"Packet Loss Developers","type":"supergroup"},"date":1613148035,"text":"my sample text"}}[lucas@majestic ~]$ 
 
-    if (strpos($a, 'are') !== false) {
-        echo 'true';
-    }
+    //if (strpos($a, 'are') !== false) {
+       // echo 'true';
+    //}
 }
 
 function filterMessage($member, $message_id, $chat_id, $reply_id)
 {
     $msg_id = $reply_id !== null ? $reply_id : $message_id; 
 
-    if (strpos($a, 'are') !== false) {
-        echo 'true';
-    }
+    //if (strpos($a, 'are') !== false) {
+    //    echo 'true';
+    //}
 }
 
 function processDelete($member, $message_id, $chat_id, $reply_id, $isAdmin = false)
