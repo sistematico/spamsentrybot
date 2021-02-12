@@ -88,8 +88,7 @@ function processMessage($message)
                 apiRequest('sendSticker', array('chat_id' => $chat_id, 'sticker' => 'CAACAgEAAxkBAAEB371gJb_kkLwJ8bU0Z2_MM41hn8ZRsQACPAADnjOcH14Lzxv4uFR0HgQ'));
                 break;
             case (strpos($text, '/lol') === 0):
-                apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => BOT_URL));
-                apiRequest('sendAnimation', array('chat_id' => $chat_id, 'animation' => BOT_URL . 'vid/no.mp4'));
+                apiRequest('sendVideo', array('chat_id' => $chat_id, 'video' => BOT_URL . 'vid/no.mp4'));
                 break;
             default:
                 break;
