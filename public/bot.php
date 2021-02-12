@@ -2,7 +2,8 @@
 
 $envs = parse_ini_file('../.env.local');
 define('BOT_TOKEN', $envs['TOKEN']);
-define('LOGPATH', $envs['LOGPATH']);
+//define('LOGPATH', $envs['LOGPATH']);
+define('LOGPATH', '../logs/bot.log');
 define('API_URL', 'https://api.telegram.org/bot' . BOT_TOKEN . '/');
 define('WEBHOOK_URL', $envs['WEBHOOK']);
 
