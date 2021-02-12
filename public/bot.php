@@ -6,21 +6,23 @@ define('LOGPATH', $envs['LOGPATH']);
 define('API_URL', 'https://api.telegram.org/bot' . BOT_TOKEN . '/');
 define('WEBHOOK_URL', $envs['WEBHOOK']);
 
-$url  = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
-$url .= $_SERVER['SERVER_NAME'];
-$url .= $_SERVER['REQUEST_URI'];
-
 $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-
-// define('BOT_URL',  dirname(dirname($url)));
 define('BOT_URL',  $actual_link);
 
 require_once '../lib/log.php';
 require_once '../lib/api.php';
 require_once '../lib/db.php';
 
+function identifyAt($string, $member, $chat)
+{
+    if (strpos($a, 'are') !== false) {
+        echo 'true';
+    }
+}
+
 function filterMessage($member, $message_id, $chat_id, $reply_id)
 {
+    $msg_id = $reply_id !== null ? $reply_id : $message_id; 
 
     if (strpos($a, 'are') !== false) {
         echo 'true';
@@ -87,7 +89,7 @@ function processMessage($message)
                 break;
             case (strpos($text, '/lol') === 0):
                 apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => BOT_URL));
-                apiRequest('sendAnimation', array('chat_id' => $chat_id, 'animation' => '../vid/no.mp4'));
+                apiRequest('sendAnimation', array('chat_id' => $chat_id, 'animation' => BOT_URL . 'vid/no.mp4'));
                 break;
             default:
                 break;
