@@ -6,6 +6,12 @@ define('LOGPATH', $envs['LOGPATH']);
 define('API_URL', 'https://api.telegram.org/bot' . BOT_TOKEN . '/');
 define('WEBHOOK_URL', $envs['WEBHOOK']);
 
+$url  = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+$url .= $_SERVER['SERVER_NAME'];
+$url .= $_SERVER['REQUEST_URI'];
+
+define('BOT_URL',  dirname(dirname($url)));
+
 require_once '../lib/log.php';
 require_once '../lib/api.php';
 require_once '../lib/db.php';
@@ -49,11 +55,12 @@ function processMessage($message)
 
         switch ($text) {
             case (strpos($text, '/debug') === 0):
-                // apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
-                $msg = "Chat ID: {$chat_id}";
-                $msg .= "Message ID: {$message_id}";
-                $msg .= "User ID: {$user_id}";
-                $msg .= "Reply ID: {$reply_id}";
+                apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
+                $msg = "Chat ID: {$chat_id}\n";
+                $msg .= "Message ID: {$message_id}\n";
+                $msg .= "User ID: {$user_id}\n";
+                $msg .= "Reply ID: {$reply_id}\n";
+                $msg .= "URL: " . BOT_URL;
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $msg));                
                 break;
             case (strpos($text, '/del') === 0):
@@ -68,6 +75,7 @@ function processMessage($message)
                 apiRequest('sendSticker', array('chat_id' => $chat_id, 'sticker' => 'CAACAgEAAxkBAAEB371gJb_kkLwJ8bU0Z2_MM41hn8ZRsQACPAADnjOcH14Lzxv4uFR0HgQ'));
                 break;
             case (strpos($text, '/lol') === 0):
+                apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => BOT_URL));
                 apiRequest('sendAnimation', array('chat_id' => $chat_id, 'animation' => '../vid/no.mp4'));
                 break;
             default:
