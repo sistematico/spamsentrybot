@@ -10,7 +10,10 @@ $url  = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
 $url .= $_SERVER['SERVER_NAME'];
 $url .= $_SERVER['REQUEST_URI'];
 
-define('BOT_URL',  dirname(dirname($url)));
+$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+// define('BOT_URL',  dirname(dirname($url)));
+define('BOT_URL',  $actual_link);
 
 require_once '../lib/log.php';
 require_once '../lib/api.php';
@@ -18,6 +21,7 @@ require_once '../lib/db.php';
 
 function filterMessage($member, $message_id, $chat_id, $reply_id)
 {
+
     if (strpos($a, 'are') !== false) {
         echo 'true';
     }
