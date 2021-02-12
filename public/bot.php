@@ -56,6 +56,7 @@ function processMessage($message)
         switch ($text) {
             case (strpos($text, '/debug') === 0):
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
+
                 $msg = "Chat ID: {$chat_id}\n";
                 $msg .= "Message ID: {$message_id}\n";
                 $msg .= "User ID: {$user_id}\n";
@@ -64,14 +65,20 @@ function processMessage($message)
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $msg));                
                 break;
             case (strpos($text, '/del') === 0):
+                apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
+
                 processDelete($member, $message_id, $chat_id, $reply_id);
                 break;
             case (strpos($text, '/logs') === 0):
+                apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
+
                 $log = readLog();
                 apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "Logs: {$log['log']}\n\n{$log['linhas']} linhas."));
                 break;
             case (strpos($text, '/ban') === 0):
-                //requisicao("sendVideo", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "video" => CABRON_URL . 'vid/fogo.mp4'));
+                apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
+
+                //apiRequest("sendVideo", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "video" => CABRON_URL . 'vid/fogo.mp4'));
                 apiRequest('sendSticker', array('chat_id' => $chat_id, 'sticker' => 'CAACAgEAAxkBAAEB371gJb_kkLwJ8bU0Z2_MM41hn8ZRsQACPAADnjOcH14Lzxv4uFR0HgQ'));
                 break;
             case (strpos($text, '/lol') === 0):
