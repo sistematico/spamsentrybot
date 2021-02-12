@@ -11,10 +11,12 @@ function readLog()
     // fclose($handle);
     // $linhas = $linecount;
 
-    $f = fopen(LOGPATH, 'rb');
+    // $f = fopen(LOGPATH, 'rb');
     $lines = 0;
-    while (!feof($f)) {
-        $lines += substr_count(fread($f, 8192), "\n");
+    if ($f = fopen(LOGPATH, "r+")) {
+        while (!feof($f)) {
+            $lines += substr_count(fread($f, 8192), "\n");
+        }
     }
     fclose($f);
     $linhas = $lines;
