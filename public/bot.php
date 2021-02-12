@@ -96,7 +96,7 @@ function processMessage($message)
             case (strpos($text, '/id') === 0):
                 $id = explode(' ', $text)[1];
                 error_log("-------   ID   ----------", 3, "../logs/bot.log");
-                apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "ID: {$id}\n\n{$log['linhas']} linhas."));
+                apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "ID: {$id}"));
                 break;
             default:
                 break;
