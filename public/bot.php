@@ -93,6 +93,11 @@ function processMessage($message)
             case (strpos($text, '/lol') === 0):
                 apiRequest('sendVideo', array('chat_id' => $chat_id, 'video' => BOT_URL . 'vid/no.mp4'));
                 break;
+            case (strpos($text, '/id') === 0):
+                $id = explode(' ', $text)[1];
+                error_log("-------   ID   ----------", 3, "../logs/bot.log");
+                apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "ID: {$id}\n\n{$log['linhas']} linhas."));
+                break;
             default:
                 break;
         }
