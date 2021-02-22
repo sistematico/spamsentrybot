@@ -272,11 +272,11 @@ $update = json_decode($content, true);
 if (!$update)
     exit;
 
-if (isset($update['callback_query'])) {
-    $callback_id = $update['callback_query']['id'];
-    $callback_user = $update['callback_query']['from']['id'];
-    $callback_content = $update['callback_query']['data'];
-}
-
-if (isset($update["message"]))
+if (isset($update["message"])) {
+    if (isset($update['callback_query'])) {
+        $callback_id = $update['callback_query']['id'];
+        $callback_user = $update['callback_query']['from']['id'];
+        $callback_content = $update['callback_query']['data'];
+    }
     processMessage($update["message"]);
+}
