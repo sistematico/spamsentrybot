@@ -92,7 +92,7 @@ function processMessage($message)
                 break;
             case (strpos($text, '/del') === 0):
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
-                processDelete($member, $message_id, $chat_id, $reply_id, $isAdmin);
+                processDelete($message_id, $chat_id, $reply_id, $isAdmin);
                 break;
             case (strpos($text, '/logs') === 0):
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
@@ -108,6 +108,10 @@ function processMessage($message)
                 break;
             case (strpos($text, '/lol') === 0):
                 apiRequest('sendVideo', array('chat_id' => $chat_id, 'video' => BOT_URL . 'vid/no.mp4'));
+                break;
+
+            case (strpos($text, '/kkk') === 0):
+                apiRequest('sendAnimation', array('chat_id' => $chat_id, 'animation' => BOT_URL . 'vid/no.mp4'));
                 break;
             case (strpos($text, '/id') === 0):
                 $id = explode(' ', $text)[1];
