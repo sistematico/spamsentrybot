@@ -128,9 +128,12 @@ function processMessage($message)
                 break;
 
             case (strpos($text, '/ping') === 0):
-                apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "\u{1F64C}"));            
+                apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "\u{1F64C}"));
             break;
             case (strpos($text, '/lol') === 0):
+                apiRequest('sendMessage', array('chat_id' => $chat_id, 'video' => BOT_URL . 'vid/no.mp4'));
+                apiRequest('sendMessage', array('chat_id' => $chat_id, 'animation' => BOT_URL . 'vid/no.mp4'));
+                apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => BOT_URL . 'vid/no.mp4'));
                 apiRequest('sendVideo', array('chat_id' => $chat_id, 'video' => BOT_URL . 'vid/no.mp4'));
                 break;
             case (strpos($text, '/kkk') === 0):
