@@ -34,22 +34,22 @@
           <div class="col-md-4 col-lg-3">
             <div class="logo">
               <a href="javascript: history.back();">
-                <img src="assets/img/web-logo-inverse-02.svg" alt="Kappamon" />
+                <img src="assets/img/web-logo-inverse-02.svg" alt="SpamSentryBot" />
               </a>
             </div>
           </div>
           <div class="col-md-5 col-lg-4 col-md-offset-3 col-lg-offset-5 col-sm-12">
             <div class="single-page-block-header-menu margin-top-15">
               <ul class="list-unstyled list-inline height-50 social-flexbox">
-                <li><a href="https://www.youtube.com/channel/UCoEOWLSaSYVJszVV6J6RhNQ" target="_blank"><i class="icmn-youtube"></i></a></li>
-                <li><a href="https://discord.gg/6nfKQEU"><i class="icon-discord"></i></a></li>
-                <li><a href="https://twitter.com/Kappamon_"><i class="icmn-twitter"></i></a></li>
+                <li><a href="#" target="_blank"><i class="icmn-youtube"></i></a></li>
+                <li><a href="#"><i class="icon-discord"></i></a></li>
+                <li><a href="#"><i class="icmn-twitter"></i></a></li>
                 <div class="line">
                 </div>
-                <div id="termsofuse" class="height-50 vertical-align">
+                <!-- <div id="termsofuse" class="height-50 vertical-align">
                   <a class="vertical-align" style="font-size: 0.9rem" href="#" data-toggle="modal" data-target="#termsOfUse"
                     aria-hidden="true">Terms of Use</a>
-                </div>
+                </div> -->
               </ul>
             </div>
           </div>
