@@ -184,6 +184,25 @@ function processMessage($message)
                     //apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => '@' . $fp));
                     apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => $fp));
                     break;
+
+                    case (strpos($text, '/lol4') === 0):
+                        // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'sendMessgae -> text'));
+                        // apiRequest('sendMessage', array('chat_id' => $chat_id, 'video' => '@' . VIDEOS . 'no.mp4'));
+                        // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'sendMessgae -> video'));
+                        // apiRequest('sendMessage', array('chat_id' => $chat_id, 'animation' => '@' . VIDEOS . 'no.mp4'));
+                        // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'sendMessgae -> animation'));
+                        // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => '@' . VIDEOS . 'no.mp4'));
+                        // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'sendVideo -> video'));
+                        // apiRequest('sendVideo', array('chat_id' => $chat_id, 'video' => '@' . VIDEOS . 'no.mp4'));
+                        // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'APIREQUESTJSON -> sendVideo -> video'));
+                        // apiRequestJson('sendVideo', array('chat_id' => $chat_id, 'video' => '@' . VIDEOS . 'no.mp4'));
+        
+                        $fp = new CURLFile(realpath(VIDEOS . 'no.mp4'));
+        
+                        //apiRequestFile('sendVideo', array('chat_id' => $chat_id, 'video' => $fp));
+                        apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => '@' . $fp));
+                        //apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => $fp));
+                        break;
             case (strpos($text, '/kkk') === 0):
                 apiRequest('sendAnimation', array('chat_id' => $chat_id, 'animation' => '@' . VIDEOS . 'no.mp4'));
                 break;
