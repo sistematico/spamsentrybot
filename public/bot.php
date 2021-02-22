@@ -34,7 +34,7 @@ function filterMessage($member, $message_id, $chat_id, $reply_id)
 function processDelete($member, $message_id, $chat_id, $reply_id, $isAdmin = false)
 {
     if ($isAdmin) {
-        if ($reply_id !== null) {
+        if ($reply_id) {
             apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));
             apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
         } else {
@@ -45,12 +45,20 @@ function processDelete($member, $message_id, $chat_id, $reply_id, $isAdmin = fal
     }
 }
 
+function warnUser($user, $message_id, $chat_id, $reply_id, $isAdmin = false)
+{
+    if ($isAdmin && $reply_id) {
+        apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));
+        apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
+    } 
+}
+
 function processMessage($message)
 {
     // process incoming message
     $chat_id = $message['chat']['id'];
     $message_id = $message['message_id'];
-    $reply_id = (isset($message['reply_to_message']['message_id']) ? $message['reply_to_message']['message_id'] : null);
+    $reply_id = $message['reply_to_message']['message_id'] ?? false;
     $user_id = $message['from']['id'];
     $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
     $isAdmin = ($member['status'] === 'creator' || $member['status'] === 'administrator' ? true : false);
