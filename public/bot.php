@@ -138,7 +138,9 @@ function processMessage($message)
                                                             //      array('text'=>'Lotomania','url'=>'http://g1.globo.com/loterias/lotomania.html')//botão 4
                                                             //   )
         
-                                                )
+                                                            ),
+                                                            'one_time_keyboard' => true,
+                                                            'selective' => true
                                         )));
                 break;
 
