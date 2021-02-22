@@ -175,6 +175,10 @@ function processMessage($message)
                 apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => VIDEOS . 'pc.mp4'));
                 break;
 
+            case (strpos($text, '/pc2') === 0):
+                apiRequestFile('sendAnimation', array('chat_id' => $chat_id, 'animation' => VIDEOS . 'pc.mp4'));
+                break;
+
             case (strpos($text, '/lol4') === 0):
                 // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'sendMessgae -> text'));
                 // apiRequest('sendMessage', array('chat_id' => $chat_id, 'video' => '@' . VIDEOS . 'no.mp4'));
