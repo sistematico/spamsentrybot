@@ -9,10 +9,10 @@
   <meta name="author" content="">
   <title>SpamSentryBot</title>
   <link rel="shortcut icon" type="image/png" href="/images/favicon.ico" />
-  <link rel="stylesheet" type="text/css" href="css/vendors/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.css">
-  <link rel="stylesheet" href="css/pages/landing-page.css">
-  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" href="assets/css/landing-page.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/main.css">
   <!-- Vendors Scripts -->
   <!-- v1.0.0 -->
   <script src="js/lib/jquery.min.js"></script>
