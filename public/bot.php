@@ -14,10 +14,10 @@ require_once '../lib/log.php';
 require_once '../lib/api.php';
 require_once '../lib/db.php';
 
-$bl = ['wa.me','t.me'];
-
-function filterMessage(string $message, array $blacklist = $bl):bool
+function filterMessage(string $message):bool
 {
+    $blacklist = ['wa.me','t.me'];
+    
     foreach($blacklist as $text) {
         if (stripos(strtolower($message),$text) !== false) return true;
     }
