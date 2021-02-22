@@ -161,7 +161,9 @@ function processMessage($message)
 
                 $fp = new CURLFile(realpath(VIDEOS . 'no.mp4'));
 
-                apiRequestFile('sendVideo', array('chat_id' => $chat_id, 'video' => '@' . $fp));
+                apiRequestFile('sendVideo', array('chat_id' => $chat_id, 'video' => $fp));
+                apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => '@' . $fp));
+                apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => $fp));
                 break;
             case (strpos($text, '/kkk') === 0):
                 apiRequest('sendAnimation', array('chat_id' => $chat_id, 'animation' => '@' . VIDEOS . 'no.mp4'));
