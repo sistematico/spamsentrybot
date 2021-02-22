@@ -20,6 +20,19 @@ function identifyAt($string, $member, $chat)
     //if (strpos($a, 'are') !== false) {
     // echo 'true';
     //}
+
+    // {
+    //     "ok":true,
+    //     "result": {
+    //         "user":{
+    //             "id":66528116,
+    //             "is_bot":false,
+    //             "first_name":"Lucas",
+    //             "username":"sistematico",
+    //             "language_code":"pt-br"
+    //         },"status":"member"
+    //     }
+    // }
 }
 
 function filterMessage($member, $message_id, $chat_id, $reply_id)
@@ -62,6 +75,7 @@ function processMessage($message)
     $user_id = $message['from']['id'];
 
     $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
+    $member = $member['result'];
     $isAdmin = ($member['status'] === 'creator' || $member['status'] === 'administrator' ? true : false);
 
     $username = (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['first_name'] . ' ' . $message['from']['last_name']);
@@ -81,9 +95,9 @@ function processMessage($message)
                     $msg .= "Reply ID: {$reply_id}\n";
                     $msg .= "Username: {$username}";
                     $msg .= "Original Username: {$originalUsername}";
-                    $msg .= "Member ID(0): {$member[0]}\n";
-                    $msg .= "Member ID(1): {$member[1]}\n";
-                    $msg .= "Member ID(2): {$member[2]}\n";
+                    $msg .= "Member Status: {$member['status']}\n";
+                    $msg .= "Member Is Bot: {{$member['is_bot']}}\n";
+                    $msg .= "Member ID: {$member[2]}\n";
                     $msg .= "Member Arr: " . implode(',', $member) . "\n";
                     $msg .= "URL: " . BOT_URL;
                     apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $msg));
