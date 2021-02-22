@@ -60,6 +60,7 @@ function processMessage($message)
     $message_id = $message['message_id'];
     $reply_id = $message['reply_to_message']['message_id'] ?? false;
     $user_id = $message['from']['id'];
+
     $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
     $isAdmin = ($member['status'] === 'creator' || $member['status'] === 'administrator' ? true : false);
 
@@ -110,6 +111,7 @@ function processMessage($message)
                 error_log("Extr1 " . implode(',', $info[0]) . PHP_EOL, 3, "../logs/bot.log");
                 error_log("Extr2 " . implode(',', $info[1]) . PHP_EOL, 3, "../logs/bot.log");
                 error_log("Extr3 " . implode(',', $info['member']) . PHP_EOL, 3, "../logs/bot.log");
+                error_log("Extr4 " . implode(',', $info) . PHP_EOL, 3, "../logs/bot.log");
                 error_log("--------  FIM ID  --------" . PHP_EOL, 3, "../logs/bot.log");
                 apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "Checando o ID: {$id}...\n\nDigite /logs para mostrar."));
                 //}
