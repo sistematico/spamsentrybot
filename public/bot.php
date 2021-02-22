@@ -97,7 +97,8 @@ function processMessage($message)
                     $msg .= "Original Username: {$originalUsername}";
                     $msg .= "Member Status: {$member['status']}\n";
                     $msg .= "Member Is Bot: {{$member['is_bot']}}\n";
-                    $msg .= "Member ID: {$member[2]}\n";
+                    $msg .= "Member First: {$member['first_name']}\n";
+                    $msg .= "Member User: {$member['username']}\n";
                     $msg .= "Member Arr: " . implode(',', $member) . "\n";
                     $msg .= "URL: " . BOT_URL;
                     apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $msg));
