@@ -93,10 +93,10 @@ function processMessage($message)
                     $msg .= "Message ID: {$message_id}\n";
                     $msg .= "User ID: {$user_id}\n";
                     $msg .= "Reply ID: {$reply_id}\n";
-                    $msg .= "Username: {$username}";
-                    $msg .= "Original Username: {$originalUsername}";
+                    $msg .= "Username: {$username}\n";
+                    $msg .= "Original Username: {$originalUsername}\n";
                     $msg .= "Member Status: {$member['status']}\n";
-                    $msg .= "Member Is Bot: {{$member['is_bot']}}\n";
+                    $msg .= "Member Is Bot: {$member['is_bot']}\n";
                     $msg .= "Member First: {$member['first_name']}\n";
                     $msg .= "Member User: {$member['username']}\n";
                     $msg .= "Member Arr: " . implode(',', $member) . "\n";
