@@ -117,7 +117,7 @@ function apiRequestJson($method, $parameters)
     return curlRequest($handle);
 }
 
-function apiRequestFile($method, $parameters, $filepath)
+function apiRequestFile($method, $parameters)
 {
 
     switch ($method) {
@@ -143,9 +143,10 @@ function apiRequestFile($method, $parameters, $filepath)
         return false;
     }
 
-    $parameters = ['{$m}' => new CURLFile(realpath($filepath)), 'method' => $method];
+    //$parameters = ['{$m}' => new CURLFile(realpath($filepath)), 'method' => $method];
 
-    //$parameters["method"] = $method;
+    //$parameters[$m] = new CURLFile(realpath($filepath)), 'method' => $method];
+    $parameters["method"] = $method;
 
     $handle = curl_init(API_URL);
     curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
