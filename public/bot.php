@@ -148,9 +148,9 @@ function processMessage($message)
                 apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "\u{1F64C}"));
             break;
             case (strpos($text, '/lol') === 0):
-                //apiRequest('sendMessage', array('chat_id' => $chat_id, 'video' => '@' . VIDEOS . 'no.mp4'));
-                //apiRequest('sendMessage', array('chat_id' => $chat_id, 'animation' => VIDEOS . 'no.mp4'));
-                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => VIDEOS . 'no.mp4'));
+                apiRequest('sendMessage', array('chat_id' => $chat_id, 'video' => '@' . VIDEOS . 'no.mp4'));
+                apiRequest('sendMessage', array('chat_id' => $chat_id, 'animation' => VIDEOS . 'no.mp4'));
+                apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => VIDEOS . 'no.mp4'));
                 apiRequest('sendVideo', array('chat_id' => $chat_id, 'video' => '@' . VIDEOS . 'no.mp4'));
                 break;
             case (strpos($text, '/kkk') === 0):
