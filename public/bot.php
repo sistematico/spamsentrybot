@@ -1,6 +1,7 @@
 <?php
 
-// Test: curl -X POST "https://api.telegram.org/bot[API_KEY]/sendMessage" -d "chat_id=-1001325544995&text=my sample text"
+// Text: curl -X POST "https://api.telegram.org/bot[TOKEN]/sendMessage" -d "chat_id=-1001325544995&text=my sample text"
+// Video: curl -X -d "chat_id=-1001325544995&video=/var/www/bots.lucasbrum.net/spamsentrybot/public/vid/no.mp4" https://api.telegram.org/bot[TOKEN]/sendVideo
 
 $envs = parse_ini_file('../.env.local');
 define('LOGPATH', '../logs/bot.log');
