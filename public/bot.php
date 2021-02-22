@@ -106,6 +106,19 @@ function processMessage($message)
                 //apiRequest("sendVideo", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "video" => CABRON_URL . 'vid/fogo.mp4'));
                 apiRequest('sendSticker', array('chat_id' => $chat_id, 'sticker' => 'CAACAgEAAxkBAAEB371gJb_kkLwJ8bU0Z2_MM41hn8ZRsQACPAADnjOcH14Lzxv4uFR0HgQ'));
                 break;
+
+            case (strpos($text, '/gline') === 0):
+                apiRequestJson("sendMessage", array('chat_id' => $chat_id, "text" => 'BAN Global?', 'reply_markup' => array(
+                    'keyboard' => array(array('Sim', 'Não')),
+                    'one_time_keyboard' => true,
+                    'resize_keyboard' => true)));
+
+                //apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
+                //apiRequest('sendSticker', array('chat_id' => $chat_id, 'sticker' => 'CAACAgEAAxkBAAEB371gJb_kkLwJ8bU0Z2_MM41hn8ZRsQACPAADnjOcH14Lzxv4uFR0HgQ'));
+                break;
+
+
+
             case (strpos($text, '/lol') === 0):
                 apiRequest('sendVideo', array('chat_id' => $chat_id, 'video' => BOT_URL . 'vid/no.mp4'));
                 break;
