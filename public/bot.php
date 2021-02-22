@@ -14,14 +14,19 @@ require_once '../lib/log.php';
 require_once '../lib/api.php';
 require_once '../lib/db.php';
 
-$blacklist = ['wa.me','t.me'];
+$bl = ['wa.me','t.me'];
 
-function filterMessage(string $message, array $blacklist):bool
+function filterMessage(string $message, array $blacklist = $bl):bool
 {
     foreach($blacklist as $text) {
         if (stripos(strtolower($message),$text) !== false) return true;
     }
     return false;
+}
+
+function filterDelete($message_id, $chat_id)
+{
+        apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
 }
 
 function processDelete($member, $message_id, $chat_id, $reply_id, $isAdmin = false)
@@ -154,6 +159,9 @@ function processMessage($message)
                 apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "Checando o ID: {$id}...\n\nDigite /logs para mostrar."));
                 break;
             default:
+                if (filterMessage($text)) {
+                    apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
+                }
                 break;
         }
     }
