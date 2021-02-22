@@ -227,8 +227,9 @@ if (!$update)
     exit;
 
 if (isset($update['callback_query'])) {
-    $callback_content = $update['callback_query']['data'];
+    $callback_id = $update['callback_query']['id'];
     $callback_user = $update['callback_query']['from']['id'];
+    $callback_content = $update['callback_query']['data'];
 }
 
 if (isset($update["message"]))
