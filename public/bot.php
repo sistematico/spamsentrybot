@@ -1,5 +1,7 @@
 <?php
 
+// Test: curl -X POST "https://api.telegram.org/bot[API_KEY]/sendMessage" -d "chat_id=-1001325544995&text=my sample text"
+
 $envs = parse_ini_file('../.env.local');
 define('LOGPATH', '../logs/bot.log');
 define('BOT_TOKEN', $envs['TOKEN']);
@@ -12,36 +14,14 @@ require_once '../lib/log.php';
 require_once '../lib/api.php';
 require_once '../lib/db.php';
 
-function identifyAt($string, $member, $chat)
+$blacklist = ['wa.me','t.me'];
+
+function filterMessage(string $message, array $blacklist):bool
 {
-    //curl -X POST "https://api.telegram.org/botXXXXXXX/sendMessage" -d "chat_id=-1001325544995&text=my sample text"
-    // {"ok":true,"result":{"message_id":325,"from":{"id":1658737482,"is_bot":true,"first_name":"SPAM Sentry Bot","username":"spamsentrybot"},"chat":{"id":-1001325544995,"title":"Packet Loss Developers","type":"supergroup"},"date":1613148035,"text":"my sample text"}}[lucas@majestic ~]$ 
-
-    //if (strpos($a, 'are') !== false) {
-    // echo 'true';
-    //}
-
-    // {
-    //     "ok":true,
-    //     "result": {
-    //         "user":{
-    //             "id":66528116,
-    //             "is_bot":false,
-    //             "first_name":"Lucas",
-    //             "username":"sistematico",
-    //             "language_code":"pt-br"
-    //         },"status":"member"
-    //     }
-    // }
-}
-
-function filterMessage($member, $message_id, $chat_id, $reply_id)
-{
-    $msg_id = $reply_id !== null ? $reply_id : $message_id;
-
-    //if (strpos($a, 'are') !== false) {
-    //    echo 'true';
-    //}
+    foreach($blacklist as $text) {
+        if (stripos(strtolower($message),$text) !== false) return true;
+    }
+    return false;
 }
 
 function processDelete($member, $message_id, $chat_id, $reply_id, $isAdmin = false)
