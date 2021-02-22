@@ -71,6 +71,10 @@ function processMessage($message)
     $username = (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['first_name'] . ' ' . $message['from']['last_name']);
     $originalUsername = (isset($message['reply_to_message']['from']['username']) ? $message['reply_to_message']['from']['username'] : $message['reply_to_message']['from']['first_name'] . ' ' . $message['reply_to_message']['from']['last_name']);
 
+    if (isset($update['callback_query']) && isset($callback_id)) {
+        apiRequest("answerCallbackQuery", array('callback_id' => $callback_id, 'text' => 'Uhullll {$callback_user}', 'show_alert' => true));
+    }
+
     if (isset($message['text'])) {
         $text = $message['text'];
 
@@ -257,10 +261,6 @@ function processMessage($message)
                 }
                 break;
         }
-    }
-
-    if (isset($update['callback_query']) && isset($callback_id)) {
-        apiRequest("answerCallbackQuery", array('callback_id' => $callback_id, 'text' => 'Uhullll {$callback_user}', 'show_alert' => true));
     }
 }
 
