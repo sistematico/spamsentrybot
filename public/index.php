@@ -34,7 +34,7 @@
           <div class="col-md-4 col-lg-3">
             <div class="logo">
               <a href="javascript: history.back();">
-                <img src="images/web-logo-inverse-02.svg" alt="Kappamon" />
+                <img src="assets/img/web-logo-inverse-02.svg" alt="Kappamon" />
               </a>
             </div>
           </div>
@@ -58,7 +58,7 @@
       <div class="landing-page-block">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <img class="center-block landing-page-image" src="images/kappamon_graphic_transparent.svg" />
+            <img class="center-block landing-page-image" src="assets/img/kappamon_graphic_transparent.svg" />
             <h1 class="landing-page-header">Your Very Own Virtual Stream Pet</h1>
             <h5 class="landing-page-subtext">
               Auto greets viewers, dances to !song, and many more fun interactions with custom commands!
