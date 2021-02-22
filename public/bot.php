@@ -79,6 +79,8 @@ function processMessage($message)
                     $msg .= "Message ID: {$message_id}\n";
                     $msg .= "User ID: {$user_id}\n";
                     $msg .= "Reply ID: {$reply_id}\n";
+                    $msg .= "Username: {$username}";
+                    $msg .= "Original Username: {$originalUsername}";
                     $msg .= "Member ID(0): {$member[0]}\n";
                     $msg .= "Member ID(1): {$member[1]}\n";
                     $msg .= "Member ID(2): {$member[2]}\n";
