@@ -117,6 +117,48 @@ function apiRequestJson($method, $parameters)
     return curlRequest($handle);
 }
 
+function apiRequestFile($method, $parameters, $filepath)
+{
+
+    switch ($method) {
+        case 'sendVideo':
+            $m = 'video';
+        break;
+        case 'sendPhoto':
+            $m = 'photo';
+        break;
+        default:
+        break;
+    }
+
+    if (!is_string($method)) {
+        error_log("Method name must be a string", 3, "../logs/bot.log");        
+        return false;
+    }
+
+    if (!$parameters) {
+        $parameters = array();
+    } else if (!is_array($parameters)) {
+        error_log("Parameters must be an array", 3, "../logs/bot.log");
+        return false;
+    }
+
+    $parameters = ['{$m}' => new CURLFile(realpath($filepath)), 'method' => $method];
+
+    //$parameters["method"] = $method;
+
+    $handle = curl_init(API_URL);
+    curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, 5);
+    curl_setopt($handle, CURLOPT_TIMEOUT, 60);
+    curl_setopt($handle, CURLOPT_POST, true);
+    //curl_setopt($handle, CURLOPT_POSTFIELDS, json_encode($parameters));
+    curl_setopt($handle, CURLOPT_POSTFIELDS, $parameters);
+    curl_setopt($handle, CURLOPT_HTTPHEADER, array("Content-Type:multipart/form-data"));
+
+    return curlRequest($handle);
+}
+
 if (php_sapi_name() == 'cli') {
     apiRequest('setWebhook', array('url' => isset($argv[1]) && $argv[1] == 'delete' ? '' : WEBHOOK_URL));
     exit;
