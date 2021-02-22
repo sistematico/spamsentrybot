@@ -118,10 +118,7 @@ function processMessage($message)
                 break;
 
             case (strpos($text, '/kline') === 0):
-                apiRequestJson("sendMessage", array('chat_id' => $chat_id, "text" => 'BAN Global?', 'reply_markup' => array(
-                    'inline_keyboard' => array(array('Sim', 'Não')),
-                    'one_time_keyboard' => true,
-                    'resize_keyboard' => true)));
+                apiRequestJson("sendMessage", array('chat_id' => $chat_id, "text" => 'BAN Global?', 'reply_markup' => array('inline_keyboard' => array(array('Sim', 'Não')))));
 
                 //apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
                 //apiRequest('sendSticker', array('chat_id' => $chat_id, 'sticker' => 'CAACAgEAAxkBAAEB371gJb_kkLwJ8bU0Z2_MM41hn8ZRsQACPAADnjOcH14Lzxv4uFR0HgQ'));
