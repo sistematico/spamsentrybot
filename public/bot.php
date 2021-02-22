@@ -16,7 +16,7 @@ require_once '../lib/db.php';
 
 function filterMessage(string $message):bool
 {
-    $blacklist = ['wa.me','t.me'];
+    $blacklist = ['wa.me','t.me','whatsapp.com'];
 
     foreach($blacklist as $text) {
         if (stripos(strtolower($message),$text) !== false) return true;
