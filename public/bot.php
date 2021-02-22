@@ -1,12 +1,10 @@
 <?php
 
 $envs = parse_ini_file('../.env.local');
-define('BOT_TOKEN', $envs['TOKEN']);
-//define('LOGPATH', $envs['LOGPATH']);
 define('LOGPATH', '../logs/bot.log');
+define('BOT_TOKEN', $envs['TOKEN']);
 define('API_URL', 'https://api.telegram.org/bot' . BOT_TOKEN . '/');
 define('WEBHOOK_URL', $envs['WEBHOOK']);
-
 $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 define('BOT_URL',  $actual_link);
 
@@ -65,7 +63,7 @@ function processMessage($message)
 
         switch ($text) {
             case (strpos($text, '/debug') === 0):
-                if ($isAdmin) {
+                //if ($isAdmin) {
                     apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
 
                     $msg = "Chat ID: {$chat_id}\n";
@@ -74,7 +72,7 @@ function processMessage($message)
                     $msg .= "Reply ID: {$reply_id}\n";
                     $msg .= "URL: " . BOT_URL;
                     apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $msg));
-                }
+                //}
                 break;
             case (strpos($text, '/del') === 0):
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
