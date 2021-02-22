@@ -215,8 +215,8 @@ function processMessage($message)
         }
     }
 
-    if (isset($update['callback_query'])) {
-        apiRequest("answerCallbackQuery", array('callback_id' => $callback_id, 'text' => 'Uhullll', 'show_alert' => true));
+    if (isset($update['callback_query']) && isset($callback_id)) {
+        apiRequest("answerCallbackQuery", array('callback_id' => $callback_id, 'text' => 'Uhullll {$callback_user}', 'show_alert' => true));
     }
 }
 
