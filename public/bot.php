@@ -118,10 +118,24 @@ function processMessage($message)
                 break;
 
             case (strpos($text, '/kline') === 0):
-                apiRequestJson("sendMessage", array('chat_id' => $chat_id, "text" => 'BAN Global?', 'reply_markup' => array('inline_keyboard' => array(array('Sim', 'Não')))));
+                //apiRequestJson("sendMessage", array('chat_id' => $chat_id, "text" => 'BAN Global?', 'reply_markup' => array('inline_keyboard' => array(array('Sim', 'Não')))));
 
-                //apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
-                //apiRequest('sendSticker', array('chat_id' => $chat_id, 'sticker' => 'CAACAgEAAxkBAAEB371gJb_kkLwJ8bU0Z2_MM41hn8ZRsQACPAADnjOcH14Lzxv4uFR0HgQ'));
+                apiRequestJson("sendMessage", array('chat_id' => $chat_id, "text" => 'Olá, '. $message['from']['first_name'].
+                '.........', 
+                'reply_markup' => array('inline_keyboard' => array(
+                                                             //linha 1
+                                                             array(
+                                                                 array('text'=>'Sim','callback_data'=>'sim'), //botão 1
+                                                                 array('text'=>'Sim','callback_data'=>'nao')//botão 2
+                                                              )
+                                                            //   //linha 2
+                                                            //  array(
+                                                            //      array('text'=>'Lotofácil','url'=>'http://g1.globo.com/loterias/lotofacil.html'), //botão 3
+                                                            //      array('text'=>'Lotomania','url'=>'http://g1.globo.com/loterias/lotomania.html')//botão 4
+                                                            //   )
+        
+                                                )
+                                        )));
                 break;
 
             case (strpos($text, '/ping') === 0):
