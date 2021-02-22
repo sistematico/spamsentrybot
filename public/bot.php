@@ -26,10 +26,10 @@ function filterMessage(string $message):bool
 
 function filterDelete($message_id, $chat_id)
 {
-        apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
+    apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
 }
 
-function processDelete($member, $message_id, $chat_id, $reply_id, $isAdmin = false)
+function processDelete($message_id, $chat_id, $reply_id, $isAdmin = false)
 {
     if ($isAdmin) {
         if ($reply_id) {
@@ -60,7 +60,7 @@ function processMessage($message)
     $user_id = $message['from']['id'];
 
     //$member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
-    $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "message_id" => $message_id));
+    $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
     $member = $member['result'];
     $isAdmin = ($member['status'] === 'creator' || $member['status'] === 'administrator' ? true : false);
 
