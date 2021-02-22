@@ -143,10 +143,12 @@ function processMessage($message)
                 $id = explode(' ', $text)[1];
                 $info = apiRequest("getChatMember", array('chat_id' => $id));
                 error_log("--------   ID   ----------" . PHP_EOL, 3, "../logs/bot.log");
-                error_log("Extr1 " . implode(',', $info[0]) . PHP_EOL, 3, "../logs/bot.log");
+                error_log("Extr01 " . $info[0] . PHP_EOL, 3, "../logs/bot.log");
+                error_log("Extr02 " . $info[1] . PHP_EOL, 3, "../logs/bot.log");
+                error_log("Extr03 " . $info['member'] . PHP_EOL, 3, "../logs/bot.log");
                 error_log("Extr2 " . implode(',', $info[1]) . PHP_EOL, 3, "../logs/bot.log");
                 error_log("Extr3 " . implode(',', $info['member']) . PHP_EOL, 3, "../logs/bot.log");
-                error_log("Extr4 " . implode(',', $info) . PHP_EOL, 3, "../logs/bot.log");
+                error_log("Extr4 " . implode(',', $info[0]) . PHP_EOL, 3, "../logs/bot.log");
                 error_log("--------  FIM ID  --------" . PHP_EOL, 3, "../logs/bot.log");
                 apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "Checando o ID: {$id}...\n\nDigite /logs para mostrar."));
                 break;
