@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,26 +7,20 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <title>SpamSentryBot</title>
-  <link rel="shortcut icon" type="image/png" href="/images/favicon.ico" />
+  <link rel="shortcut icon" type="image/png" href="assets/img/favicon.ico" />
   <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.css">
   <link rel="stylesheet" href="assets/css/landing-page.css">
   <link rel="stylesheet" type="text/css" href="assets/css/main.css">
-  <!-- Vendors Scripts -->
-  <!-- v1.0.0 -->
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/js/tether.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
-
   <script src="assets/js/main.js"></script>
 </head>
-
 <body class="theme-default landing-page-body">
-
   <section class="page-content">
     <div class="page-content-inner">
-
       <!-- Register Page -->
       <div class="single-page-block-header">
         <div class="row">
@@ -54,7 +47,6 @@
           </div>
         </div>
       </div>
-
       <div class="landing-page-block">
         <div class="row">
           <div class="col-lg-12 text-center">
@@ -79,11 +71,7 @@
 
       </div>
     </div>
-    <!-- End Register Page -->
-
     </div>
-
-    <!-- End Page Scripts -->
   </section>
 </body>
 </html>
