@@ -143,13 +143,13 @@ function processMessage($message)
                 apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "\u{1F64C}"));
             break;
             case (strpos($text, '/lol') === 0):
-                apiRequest('sendMessage', array('chat_id' => $chat_id, 'video' => BOT_URL . 'vid/no.mp4'));
-                apiRequest('sendMessage', array('chat_id' => $chat_id, 'animation' => BOT_URL . 'vid/no.mp4'));
-                apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => BOT_URL . 'vid/no.mp4'));
-                apiRequest('sendVideo', array('chat_id' => $chat_id, 'video' => BOT_URL . 'vid/no.mp4'));
+                apiRequest('sendMessage', array('chat_id' => $chat_id, 'video' => __DIR__ . 'vid/no.mp4'));
+                apiRequest('sendMessage', array('chat_id' => $chat_id, 'animation' => __DIR__ . 'vid/no.mp4'));
+                apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => __DIR__ . 'vid/no.mp4'));
+                apiRequest('sendVideo', array('chat_id' => $chat_id, 'video' => __DIR__ . 'vid/no.mp4'));
                 break;
             case (strpos($text, '/kkk') === 0):
-                apiRequest('sendAnimation', array('chat_id' => $chat_id, 'animation' => BOT_URL . 'vid/no.mp4'));
+                apiRequest('sendAnimation', array('chat_id' => $chat_id, 'animation' => __DIR__ . 'vid/no.mp4'));
                 break;
             case (strpos($text, '/id') === 0):
                 $id = explode(' ', $text)[1];
