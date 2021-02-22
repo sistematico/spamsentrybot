@@ -109,7 +109,6 @@ function processMessage($message)
             case (strpos($text, '/lol') === 0):
                 apiRequest('sendVideo', array('chat_id' => $chat_id, 'video' => BOT_URL . 'vid/no.mp4'));
                 break;
-
             case (strpos($text, '/kkk') === 0):
                 apiRequest('sendAnimation', array('chat_id' => $chat_id, 'animation' => BOT_URL . 'vid/no.mp4'));
                 break;
