@@ -11,8 +11,8 @@ define('WEBHOOK_URL', $envs['WEBHOOK']);
 $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 define('BOT_URL',  $actual_link);
 
-define('VIDEOS', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vid' . DIRECTORY_SEPARATOR);
-define('AUDIOS', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'aud' . DIRECTORY_SEPARATOR);
+define('VIDEOS', __DIR__ . DIRECTORY_SEPARATOR . 'vid' . DIRECTORY_SEPARATOR);
+define('AUDIOS', __DIR__ . DIRECTORY_SEPARATOR . 'aud' . DIRECTORY_SEPARATOR);
 
 require_once '../lib/log.php';
 require_once '../lib/api.php';
@@ -146,9 +146,9 @@ function processMessage($message)
                 apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "\u{1F64C}"));
             break;
             case (strpos($text, '/lol') === 0):
-                apiRequest('sendMessage', array('chat_id' => $chat_id, 'video' => VIDEOS . 'no.mp4'));
-                apiRequest('sendMessage', array('chat_id' => $chat_id, 'animation' => VIDEOS . 'no.mp4'));
-                apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => VIDEOS . 'no.mp4'));
+                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'video' => VIDEOS . 'no.mp4'));
+                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'animation' => VIDEOS . 'no.mp4'));
+                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => VIDEOS . 'no.mp4'));
                 apiRequest('sendVideo', array('chat_id' => $chat_id, 'video' => VIDEOS . 'no.mp4'));
                 break;
             case (strpos($text, '/kkk') === 0):
