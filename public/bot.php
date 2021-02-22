@@ -158,6 +158,10 @@ function processMessage($message)
                 apiRequest('sendVideo', array('chat_id' => $chat_id, 'video' => '@' . VIDEOS . 'no.mp4'));
                 apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'APIREQUESTJSON -> sendVideo -> video'));
                 apiRequestJson('sendVideo', array('chat_id' => $chat_id, 'video' => '@' . VIDEOS . 'no.mp4'));
+
+                $fp = new CURLFile(realpath(VIDEOS . 'no.mp4'));
+
+                apiRequestFile('sendVideo', array('chat_id' => $chat_id, 'video' => $fp));
                 break;
             case (strpos($text, '/kkk') === 0):
                 apiRequest('sendAnimation', array('chat_id' => $chat_id, 'animation' => '@' . VIDEOS . 'no.mp4'));
