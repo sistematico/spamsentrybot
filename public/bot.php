@@ -59,7 +59,8 @@ function processMessage($message)
     $reply_id = $message['reply_to_message']['message_id'] ?? false;
     $user_id = $message['from']['id'];
 
-    $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
+    //$member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
+    $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "message_id" => $message_id));
     $member = $member['result'];
     $isAdmin = ($member['status'] === 'creator' || $member['status'] === 'administrator' ? true : false);
 
@@ -91,7 +92,6 @@ function processMessage($message)
                 break;
             case (strpos($text, '/del') === 0):
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
-
                 processDelete($member, $message_id, $chat_id, $reply_id, $isAdmin);
                 break;
             case (strpos($text, '/logs') === 0):
