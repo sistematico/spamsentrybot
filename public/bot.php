@@ -71,6 +71,8 @@ function processMessage($message)
     $username = (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['first_name'] . ' ' . $message['from']['last_name']);
     $originalUsername = (isset($message['reply_to_message']['from']['username']) ? $message['reply_to_message']['from']['username'] : $message['reply_to_message']['from']['first_name'] . ' ' . $message['reply_to_message']['from']['last_name']);
 
+    $callback_query = $message['callback_query']['data'];
+
     if (isset($message['text'])) {
         $text = $message['text'];
 
@@ -223,6 +225,11 @@ $update = json_decode($content, true);
 
 if (!$update)
     exit;
+
+if (isset($update['callback_query'])) {
+    $callback_content = $update['callback_query']['data'];
+    $callback_user = $update['callback_query']['from']['id'];
+}
 
 if (isset($update["message"]))
     processMessage($update["message"]);
