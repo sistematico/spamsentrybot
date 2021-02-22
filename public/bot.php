@@ -17,7 +17,7 @@ require_once '../lib/db.php';
 function filterMessage(string $message):bool
 {
     $blacklist = ['wa.me','t.me'];
-    
+
     foreach($blacklist as $text) {
         if (stripos(strtolower($message),$text) !== false) return true;
     }
@@ -161,6 +161,8 @@ function processMessage($message)
             default:
                 if (filterMessage($text)) {
                     apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
+                    apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
+                    apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "\u{1F621} @{$username}"));
                 }
                 break;
         }
