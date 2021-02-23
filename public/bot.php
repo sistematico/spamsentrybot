@@ -18,6 +18,16 @@ require_once '../lib/log.php';
 require_once '../lib/api.php';
 require_once '../lib/db.php';
 
+function addWarn($user,$params) {
+    $sql = "UPDATE users SET warn = warn + 1 WHERE chat_id = ? AND user_id = ?";
+    //$sql = 'INSERT INTO projects(project_name) VALUES(:project_name)';
+    $stmt = $file_db->prepare($sql);
+    $stmt->bindValue();
+    $stmt->execute([':project_name', $projectName]);
+
+    return $file_db->lastInsertId;
+}
+
 function filterMessage(string $message):bool
 {
     $blacklist = ['wa.me','t.me','whatsapp.com'];
