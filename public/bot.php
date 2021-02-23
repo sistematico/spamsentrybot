@@ -128,70 +128,41 @@ function processMessage($message)
             case (strpos($text, '/kline') === 0):
                 //apiRequestJson("sendMessage", array('chat_id' => $chat_id, "text" => 'BAN Global?', 'reply_markup' => array('inline_keyboard' => array(array('Sim', 'Não')))));
 
-                apiRequestJson("sendMessage", array('chat_id' => $chat_id, "text" => 'Olá, '. $message['from']['first_name'].
-                '.........', 
-                'reply_markup' => array('inline_keyboard' => array(
-                                                             //linha 1
-                                                             array(
-                                                                 array('text'=>'Sim','callback_data'=>'sim'), //botão 1
-                                                                 array('text'=>'Sim','callback_data'=>'nao')//botão 2
-                                                              )
-                                                            //   //linha 2
-                                                            //  array(
-                                                            //      array('text'=>'Lotofácil','url'=>'http://g1.globo.com/loterias/lotofacil.html'), //botão 3
-                                                            //      array('text'=>'Lotomania','url'=>'http://g1.globo.com/loterias/lotomania.html')//botão 4
-                                                            //   )
-        
-                                                            ),
-                                                            'one_time_keyboard' => true,
-                                                            'selective' => true
-                                        )));
+                apiRequestJson(
+                    "sendMessage", 
+                    array(
+                        'chat_id' => $chat_id, 
+                        'text' => 'Olá, '. $message['from']['first_name'],
+                        'reply_markup' => array(
+                            'inline_keyboard' => array(
+                                array(
+                                    array('text'=>'Sim','callback_data'=>'sim'),
+                                    array('text'=>'Sim','callback_data'=>'nao')
+                                )
+                                // array(
+                                    // array('text'=>'Lotofácil','url'=>'http://g1.globo.com/loterias/lotofacil.html'),
+                                    // array('text'=>'Lotomania','url'=>'http://g1.globo.com/loterias/lotomania.html')
+                                // )
+                            ),
+                            'one_time_keyboard' => true,
+                            'selective' => true
+                        )
+                    )
+                );
                 break;
-
             case (strpos($text, '/ping') === 0):
                 apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "\u{1F64C}"));
             break;
             case (strpos($text, '/lol') === 0):
-                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'sendMessgae -> text'));
-                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'video' => '@' . VIDEOS . 'no.mp4'));
-                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'sendMessgae -> video'));
-                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'animation' => '@' . VIDEOS . 'no.mp4'));
-                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'sendMessgae -> animation'));
-                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => '@' . VIDEOS . 'no.mp4'));
-                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'sendVideo -> video'));
-                // apiRequest('sendVideo', array('chat_id' => $chat_id, 'video' => '@' . VIDEOS . 'no.mp4'));
-                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'APIREQUESTJSON -> sendVideo -> video'));
-                // apiRequestJson('sendVideo', array('chat_id' => $chat_id, 'video' => '@' . VIDEOS . 'no.mp4'));
-
                 $fp = new CURLFile(realpath(VIDEOS . 'no.mp4'));
-
-                //apiRequestFile('sendVideo', array('chat_id' => $chat_id, 'video' => $fp));
-                //apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => '@' . $fp));
                 apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => $fp));
                 break;
-
             case (strpos($text, '/no') === 0):
                 $fp = new CURLFile(realpath(VIDEOS . 'no.mp4'));
                 apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => $fp));
                 break;
-
             case (strpos($text, '/pc') === 0):
                 apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => new CURLFile(realpath(VIDEOS . 'pc.mp4'))));
-                break;
-
-            case (strpos($text, '/pc2') === 0):
-                apiRequestFile('sendAnimation', array('chat_id' => $chat_id, 'animation' => new CURLFile(realpath(VIDEOS . 'pc.mp4'))));
-                break;
-
-            case (strpos($text, '/lol4') === 0):
-                $fp = new CURLFile(realpath(VIDEOS . 'no.mp4'));
-
-                //apiRequestFile('sendVideo', array('chat_id' => $chat_id, 'video' => $fp));
-                apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => '@' . $fp));
-                //apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => $fp));
-                break;
-            case (strpos($text, '/kkk') === 0):
-                apiRequest('sendAnimation', array('chat_id' => $chat_id, 'animation' => '@' . VIDEOS . 'no.mp4'));
                 break;
             case (strpos($text, '/id') === 0):
                 $id = explode(' ', $text)[1];
@@ -206,18 +177,6 @@ function processMessage($message)
                 apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "Checando o ID: {$id}...\n\nDigite /logs para mostrar."));
                 //}
                 break;
-            case (strpos($text, '/iduser') === 0):
-                $id = explode(' ', $text)[1];
-                //if (isset($id) && !empty($id)) {
-                $info = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $id));
-                error_log("--------   ID   ----------" . PHP_EOL, 3, "../logs/bot.log");
-                error_log("Extr1 " . implode(',', $info[0]) . PHP_EOL, 3, "../logs/bot.log");
-                error_log("Extr2 " . implode(',', $info[1]) . PHP_EOL, 3, "../logs/bot.log");
-                error_log("Extr3 " . implode(',', $info['member']) . PHP_EOL, 3, "../logs/bot.log");
-                error_log("--------  FIM ID  --------" . PHP_EOL, 3, "../logs/bot.log");
-                apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "Checando o ID: {$id}...\n\nDigite /logs para mostrar."));
-                //}
-                break;
             case (strpos($text, '/idchat') === 0):
                 $id = explode(' ', $text)[1];
                 $info = apiRequest("getChat", array('chat_id' => $id));
@@ -228,7 +187,6 @@ function processMessage($message)
                 error_log("--------  FIM ID  --------" . PHP_EOL, 3, "../logs/bot.log");
                 apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "Checando o ID: {$id}...\n\nDigite /logs para mostrar."));
                 break;
-
             case (strpos($text, '/idorig') === 0):
                 $id = explode(' ', $text)[1];
                 $info = apiRequest("getChatMember", array('chat_id' => $id));
