@@ -176,25 +176,14 @@ function processMessage($message)
                 break;
 
             case (strpos($text, '/pc') === 0):
-                apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => VIDEOS . 'pc.mp4'));
+                apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => new CURLFile(realpath(VIDEOS . 'pc.mp4'))));
                 break;
 
             case (strpos($text, '/pc2') === 0):
-                apiRequestFile('sendAnimation', array('chat_id' => $chat_id, 'animation' => VIDEOS . 'pc.mp4'));
+                apiRequestFile('sendAnimation', array('chat_id' => $chat_id, 'animation' => new CURLFile(realpath(VIDEOS . 'pc.mp4'))));
                 break;
 
             case (strpos($text, '/lol4') === 0):
-                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'sendMessgae -> text'));
-                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'video' => '@' . VIDEOS . 'no.mp4'));
-                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'sendMessgae -> video'));
-                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'animation' => '@' . VIDEOS . 'no.mp4'));
-                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'sendMessgae -> animation'));
-                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => '@' . VIDEOS . 'no.mp4'));
-                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'sendVideo -> video'));
-                // apiRequest('sendVideo', array('chat_id' => $chat_id, 'video' => '@' . VIDEOS . 'no.mp4'));
-                // apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'APIREQUESTJSON -> sendVideo -> video'));
-                // apiRequestJson('sendVideo', array('chat_id' => $chat_id, 'video' => '@' . VIDEOS . 'no.mp4'));
-
                 $fp = new CURLFile(realpath(VIDEOS . 'no.mp4'));
 
                 //apiRequestFile('sendVideo', array('chat_id' => $chat_id, 'video' => $fp));
