@@ -119,18 +119,6 @@ function apiRequestJson($method, $parameters)
 
 function apiRequestFile($method, $parameters)
 {
-
-    switch ($method) {
-        case 'sendVideo':
-            $m = 'video';
-        break;
-        case 'sendPhoto':
-            $m = 'photo';
-        break;
-        default:
-        break;
-    }
-
     if (!is_string($method)) {
         error_log("Method name must be a string", 3, "../logs/bot.log");        
         return false;
@@ -143,9 +131,6 @@ function apiRequestFile($method, $parameters)
         return false;
     }
 
-    //$parameters = ['{$m}' => new CURLFile(realpath($filepath)), 'method' => $method];
-
-    //$parameters[$m] = new CURLFile(realpath($filepath)), 'method' => $method];
     $parameters["method"] = $method;
 
     $handle = curl_init(API_URL);
@@ -153,7 +138,6 @@ function apiRequestFile($method, $parameters)
     curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, 5);
     curl_setopt($handle, CURLOPT_TIMEOUT, 60);
     curl_setopt($handle, CURLOPT_POST, true);
-    //curl_setopt($handle, CURLOPT_POSTFIELDS, json_encode($parameters));
     curl_setopt($handle, CURLOPT_POSTFIELDS, $parameters);
     curl_setopt($handle, CURLOPT_HTTPHEADER, array("Content-Type:multipart/form-data"));
 
