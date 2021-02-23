@@ -162,7 +162,8 @@ function processMessage($message)
                 apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => $fp));
                 break;
             case (strpos($text, '/pc') === 0):
-                apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => new CURLFile(realpath(VIDEOS . 'pc.mp4'))));
+                $fp = new CURLFile(realpath(VIDEOS . 'pc.mp4'));
+                apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => $fp));
                 break;
             case (strpos($text, '/id') === 0):
                 $id = explode(' ', $text)[1];
