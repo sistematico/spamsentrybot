@@ -159,11 +159,11 @@ function processMessage($message)
                 break;
             case (strpos($text, '/no') === 0):
                 $fp = new CURLFile(realpath(VIDEOS . 'no.mp4'));
-                apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => $fp));
+                apiRequestFile('sendVideo', array('chat_id' => $chat_id, 'video' => $fp));
                 break;
             case (strpos($text, '/pc') === 0):
                 $fp = new CURLFile(realpath(VIDEOS . 'pc.mp4'));
-                apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => $fp));
+                apiRequestFile('sendVideo', array('chat_id' => $chat_id, 'video' => $fp));
                 break;
             case (strpos($text, '/id') === 0):
                 $id = explode(' ', $text)[1];
