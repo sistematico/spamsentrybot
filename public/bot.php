@@ -167,7 +167,6 @@ function processMessage($message)
                 break;
             case (strpos($text, '/id') === 0):
                 $id = explode(' ', $text)[1];
-                //if (isset($id) && !empty($id)) {
                 $info = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
                 error_log("--------   ID   ----------" . PHP_EOL, 3, "../logs/bot.log");
                 error_log("Extr1 " . implode(',', $info[0]) . PHP_EOL, 3, "../logs/bot.log");
@@ -176,7 +175,6 @@ function processMessage($message)
                 error_log("Extr4 " . implode(',', $info) . PHP_EOL, 3, "../logs/bot.log");
                 error_log("--------  FIM ID  --------" . PHP_EOL, 3, "../logs/bot.log");
                 apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "Checando o ID: {$id}...\n\nDigite /logs para mostrar."));
-                //}
                 break;
             case (strpos($text, '/idchat') === 0):
                 $id = explode(' ', $text)[1];
