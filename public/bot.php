@@ -18,15 +18,24 @@ require_once '../lib/log.php';
 require_once '../lib/api.php';
 require_once '../lib/db.php';
 
-function addWarn($user,$params) {
-    $sql = "UPDATE users SET warn = warn + 1 WHERE chat_id = ? AND user_id = ?";
-    //$sql = 'INSERT INTO projects(project_name) VALUES(:project_name)';
-    $stmt = $file_db->prepare($sql);
-    $stmt->bindValue();
-    $stmt->execute([':project_name', $projectName]);
+//function addWarn($user,$params) {
+//    $sql = "UPDATE users SET warn = warn + 1 WHERE chat_id = ? AND user_id = ?";
+//    //$sql = 'INSERT INTO projects(project_name) VALUES(:project_name)';
+//    $stmt = $file_db->prepare($sql);
+//    $stmt->bindValue();
+//    $stmt->execute([':project_name', $projectName]);
+//
+//    return $file_db->lastInsertId;
+//}
 
-    return $file_db->lastInsertId;
-}
+
+//function warnUser($user, $message_id, $chat_id, $reply_id, $isAdmin = false)
+//{
+//    if ($isAdmin && $reply_id) {
+//        apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));
+//        apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
+//    }
+//}
 
 function filterMessage(string $message):bool
 {
@@ -38,10 +47,10 @@ function filterMessage(string $message):bool
     return false;
 }
 
-function filterDelete($message_id, $chat_id)
-{
-    apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
-}
+//function filterDelete($message_id, $chat_id)
+//{
+//    apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
+//}
 
 function processDelete($message_id, $chat_id, $reply_id, $isAdmin = false)
 {
@@ -57,14 +66,6 @@ function processDelete($message_id, $chat_id, $reply_id, $isAdmin = false)
     }
 }
 
-function warnUser($user, $message_id, $chat_id, $reply_id, $isAdmin = false)
-{
-    if ($isAdmin && $reply_id) {
-        apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));
-        apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
-    } 
-}
-
 function processMessage($message)
 {
     // process incoming message
@@ -76,7 +77,7 @@ function processMessage($message)
     //$member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
     $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
     $member = $member['result'];
-    $isAdmin = ($member['status'] === 'creator' || $member['status'] === 'administrator' ? true : false);
+    $isAdmin = $member['status'] === 'creator' || $member['status'] === 'administrator';
 
     $username = (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['first_name'] . ' ' . $message['from']['last_name']);
     $originalUsername = (isset($message['reply_to_message']['from']['username']) ? $message['reply_to_message']['from']['username'] : $message['reply_to_message']['from']['first_name'] . ' ' . $message['reply_to_message']['from']['last_name']);
