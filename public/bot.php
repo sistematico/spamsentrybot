@@ -14,8 +14,8 @@ define('BOT_URL',  $actual_link);
 define('VIDEOS', __DIR__ . DIRECTORY_SEPARATOR . 'vid' . DIRECTORY_SEPARATOR);
 define('AUDIOS', __DIR__ . DIRECTORY_SEPARATOR . 'aud' . DIRECTORY_SEPARATOR);
 
-require_once '../lib/api.php';
 require_once '../lib/db.php';
+require_once '../lib/api.php';
 
 //function addWarn($user,$params) {
 //    $sql = "UPDATE users SET warn = warn + 1 WHERE chat_id = ? AND user_id = ?";
