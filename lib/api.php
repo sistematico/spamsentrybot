@@ -1,5 +1,28 @@
 <?php
 
+$envs = parse_ini_file('../.env.local');
+define('API', 'https://api.telegram.org/bot' . $envs['TOKEN'] . '/');
+
+function readLog()
+{
+    $linecount = 0;
+    if ($handle = fopen(LOGPATH, "r")) {
+        while (!feof($handle)) {
+            $line = fgets($handle, 4096);
+            $linecount += substr_count($line, PHP_EOL);
+        }
+        fclose($handle);
+    }
+
+    $linhas = $linecount;
+
+    $logfile = fopen(LOGPATH, "r") or die("Unable to open file!");
+    $log = fread($logfile, filesize(LOGPATH));
+    fclose($logfile);
+
+    return array('log' => $log, 'linhas' => $linhas);
+}
+
 function apiRequestWebhook($method, $parameters)
 {
     if (!is_string($method)) {
@@ -80,7 +103,7 @@ function apiRequest($method, $parameters)
             $val = json_encode($val);
         }
     }
-    $url = API_URL . $method . '?' . http_build_query($parameters);
+    $url = API . $method . '?' . http_build_query($parameters);
 
     $handle = curl_init($url);
     curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);

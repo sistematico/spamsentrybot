@@ -14,7 +14,6 @@ define('BOT_URL',  $actual_link);
 define('VIDEOS', __DIR__ . DIRECTORY_SEPARATOR . 'vid' . DIRECTORY_SEPARATOR);
 define('AUDIOS', __DIR__ . DIRECTORY_SEPARATOR . 'aud' . DIRECTORY_SEPARATOR);
 
-require_once '../lib/log.php';
 require_once '../lib/api.php';
 require_once '../lib/db.php';
 
