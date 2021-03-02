@@ -1,0 +1,19 @@
+name: Laravel CI/CD
+on:
+  push:
+  pull_request:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy Laravel Project
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-suggest
+      - name: Install NPM dependencies
+        run: npm install
+      - name: Compile assets
+        run: npm run production
+      - name: Create Laravel migrations
+        run: php artisan migrate --force
