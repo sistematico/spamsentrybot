@@ -62,7 +62,7 @@ function processMessage($message)
     $reply_id = $message['reply_to_message']['message_id'] ?? false;
     $user_id = $message['from']['id'];
 
-    //$member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
+    $getChat = apiRequest("getChat", array('chat_id' => $chat_id));
     $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
     $member = $member['result'];
     $isAdmin = $member['status'] === 'creator' || $member['status'] === 'administrator';
@@ -115,6 +115,9 @@ function processMessage($message)
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
                 //apiRequest("sendVideo", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "video" => CABRON_URL . 'vid/fogo.mp4'));
                 apiRequest('sendSticker', array('chat_id' => $chat_id, 'sticker' => 'CAACAgEAAxkBAAEB371gJb_kkLwJ8bU0Z2_MM41hn8ZRsQACPAADnjOcH14Lzxv4uFR0HgQ'));
+                break;
+            case (strpos($text, '/getchat') === 0):
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => implode(',', $getChat)));
                 break;
             case (strpos($text, '/member1') === 0):
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => gettype($member)));
@@ -189,29 +192,11 @@ function processMessage($message)
                 error_log("--------  FIM ID  --------" . PHP_EOL, 3, "../logs/bot.log");
                 apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "Checando o ID: {$id}...\n\nDigite /logs para mostrar."));
                 break;
-            case (strpos($text, '/idorig') === 0):
-                $id = explode(' ', $text)[1];
-                $info = apiRequest("getChatMember", array('chat_id' => $id));
-
-                $log = "--------   ID   ----------" . PHP_EOL;
-                $log .= "Extr01 " . $info[0] . PHP_EOL;
-                $log .= "Extr02 " . $info[1] . PHP_EOL;
-                $log .= "Extr03 " . $info['member'] . PHP_EOL;
-                $log .= "Extr2 " . implode(',', $info[1]) . PHP_EOL;
-                $log .= "Extr3 " . implode(',', $info['member']) . PHP_EOL;
-                $log .= "Extr4 " . implode(',', $info[0]) . PHP_EOL;
-                $log .= "--------  FIM ID  --------" . PHP_EOL;
-
-                error_log($log, 3, "../logs/bot.log");
-
-
-                apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "Checando o ID: {$id}...\n\nDigite /logs para mostrar."));
-                break;
             default:
                 if (filterMessage($text)) {
                     apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $message_id));
-                    apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
-                    apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "\u{1F621} @{$username}"));
+                    //apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
+                    //apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "\u{1F621} @{$username}"));
                 }
                 break;
         }
