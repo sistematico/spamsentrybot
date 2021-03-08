@@ -66,7 +66,6 @@ function processMessage($message)
     $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
     $member = $member['result'];
     $isAdmin = $member['status'] === 'creator' || $member['status'] === 'administrator';
-    //$isAdmin = $member['status'] === 'administrator' ? true : false;
 
     $username = (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['first_name'] . ' ' . $message['from']['last_name']);
     $originalUsername = (isset($message['reply_to_message']['from']['username']) ? $message['reply_to_message']['from']['username'] : $message['reply_to_message']['from']['first_name'] . ' ' . $message['reply_to_message']['from']['last_name']);
@@ -118,6 +117,11 @@ function processMessage($message)
 
                 //apiRequest("sendVideo", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "video" => CABRON_URL . 'vid/fogo.mp4'));
                 apiRequest('sendSticker', array('chat_id' => $chat_id, 'sticker' => 'CAACAgEAAxkBAAEB371gJb_kkLwJ8bU0Z2_MM41hn8ZRsQACPAADnjOcH14Lzxv4uFR0HgQ'));
+                break;
+
+            case (strpos($text, '/member') === 0):
+                $member = [];
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => gettype($member)));
                 break;
 
             case (strpos($text, '/gline') === 0):
