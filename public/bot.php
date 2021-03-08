@@ -117,7 +117,7 @@ function processMessage($message)
                 apiRequest('sendSticker', array('chat_id' => $chat_id, 'sticker' => 'CAACAgEAAxkBAAEB371gJb_kkLwJ8bU0Z2_MM41hn8ZRsQACPAADnjOcH14Lzxv4uFR0HgQ'));
                 break;
             case (strpos($text, '/getchat') === 0):
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => implode(',', $getChat)));
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => implode(',', array_keys($getChat))));
                 break;
             case (strpos($text, '/member1') === 0):
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => gettype($member)));
