@@ -108,37 +108,26 @@ function processMessage($message)
                 break;
             case (strpos($text, '/logs') === 0):
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
-
                 $log = readLog();
                 apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "Logs: {$log['log']}\n\n{$log['linhas']} linhas."));
                 break;
             case (strpos($text, '/ban') === 0):
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
-
                 //apiRequest("sendVideo", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "video" => CABRON_URL . 'vid/fogo.mp4'));
                 apiRequest('sendSticker', array('chat_id' => $chat_id, 'sticker' => 'CAACAgEAAxkBAAEB371gJb_kkLwJ8bU0Z2_MM41hn8ZRsQACPAADnjOcH14Lzxv4uFR0HgQ'));
                 break;
-
             case (strpos($text, '/member1') === 0):
-                $member = [];
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => gettype($member)));
                 break;
-
             case (strpos($text, '/member2') === 0):
-                $member = [];
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => implode(',', $member)));
                 break;
-
             case (strpos($text, '/member3') === 0):
-                $member = [];
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => print_r($member)));
                 break;
-
             case (strpos($text, '/member5') === 0):
-                $member = [];
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => var_dump($member)));
                 break;
-
             case (strpos($text, '/gline') === 0):
                 apiRequestJson("sendMessage", array('chat_id' => $chat_id, "text" => 'BAN Global?', 'reply_markup' => array(
                     'keyboard' => array(array('Sim', 'Não')),
