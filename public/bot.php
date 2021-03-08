@@ -119,7 +119,7 @@ function processMessage($message)
                 apiRequest('sendSticker', array('chat_id' => $chat_id, 'sticker' => 'CAACAgEAAxkBAAEB371gJb_kkLwJ8bU0Z2_MM41hn8ZRsQACPAADnjOcH14Lzxv4uFR0HgQ'));
                 break;
 
-            case (strpos($text, '/member') === 0):
+            case (strpos($text, '/member1') === 0):
                 $member = [];
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => gettype($member)));
                 break;
@@ -132,6 +132,11 @@ function processMessage($message)
             case (strpos($text, '/member3') === 0):
                 $member = [];
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => print_r($member)));
+                break;
+
+            case (strpos($text, '/member5') === 0):
+                $member = [];
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => var_dump($member)));
                 break;
 
             case (strpos($text, '/gline') === 0):
