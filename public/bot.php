@@ -47,7 +47,7 @@ function processDelete($message_id, $chat_id, $reply_id, $isAdmin = false)
     }
 }
 
-function warnUser($user, $message_id, $chat_id, $reply_id, $isAdmin = false)
+function warnUser($message_id, $chat_id, $reply_id, $isAdmin = false)
 {
     if ($isAdmin && $reply_id) {
         apiRequest("deleteMessage", array('chat_id' => $chat_id, "message_id" => $reply_id));
@@ -66,7 +66,8 @@ function processMessage($message)
     //$member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
     $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
     $member = $member['result'];
-    $isAdmin = ($member['status'] === 'creator' || $member['status'] === 'administrator' ? true : false);
+    //$isAdmin = ($member['status'] === 'creator' || $member['status'] === 'administrator' ? true : false);
+    $isAdmin = $member['status'] === 'administrator' ? true : false;
 
     $username = (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['first_name'] . ' ' . $message['from']['last_name']);
     $originalUsername = (isset($message['reply_to_message']['from']['username']) ? $message['reply_to_message']['from']['username'] : $message['reply_to_message']['from']['first_name'] . ' ' . $message['reply_to_message']['from']['last_name']);
@@ -92,7 +93,7 @@ function processMessage($message)
                     $msg .= "Member Status: " . $member['status'] . "\n";
                     $msg .= "Member Is Bot: " . $member['is_bot'] . "\n";
                     $msg .= "Member First: " . $member['first_name'] . "\n";
-                    $msg .= "Member User: " . $member['username']} . "\n";
+                    $msg .= "Member User: " . $member['username'] . "\n";
                     //$msg .= "Member Arr: " . implode(',', $member) . "\n";
                     $msg .= "URL: " . BOT_URL;
                     apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $msg));
@@ -101,6 +102,11 @@ function processMessage($message)
             case (strpos($text, '/del') === 0):
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
                 processDelete($message_id, $chat_id, $reply_id, $isAdmin);
+                break;
+            case (strpos($text, '/warn') === 0):
+                apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
+                // warnUser($message_id, $chat_id, $reply_id, $isAdmin = false)
+                warnUser($message_id, $chat_id, $reply_id, $isAdmin);
                 break;
             case (strpos($text, '/logs') === 0):
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
