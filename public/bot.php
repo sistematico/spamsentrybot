@@ -129,6 +129,11 @@ function processMessage($message)
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => implode(',', $member)));
                 break;
 
+            case (strpos($text, '/member3') === 0):
+                $member = [];
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => print_r($member)));
+                break;
+
             case (strpos($text, '/gline') === 0):
                 apiRequestJson("sendMessage", array('chat_id' => $chat_id, "text" => 'BAN Global?', 'reply_markup' => array(
                     'keyboard' => array(array('Sim', 'Não')),
