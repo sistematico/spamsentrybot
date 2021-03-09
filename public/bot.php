@@ -66,10 +66,7 @@ function processMessage($message)
     $groupName = basename($getChat['invite_link']);
 
     $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
-
-    //$member = $member['result'];
     $isAdmin = $member['status'] === 'creator' || $member['status'] === 'administrator';
-
     $username = (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['first_name'] . ' ' . $message['from']['last_name']);
     $originalUsername = (isset($message['reply_to_message']['from']['username']) ? $message['reply_to_message']['from']['username'] : $message['reply_to_message']['from']['first_name'] . ' ' . $message['reply_to_message']['from']['last_name']);
 
@@ -82,7 +79,7 @@ function processMessage($message)
 
         switch ($text) {
             case (strpos($text, '/debug') === 0):
-                //if ($isAdmin) {
+                if ($isAdmin) {
                     apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
 
                     $msg = "Chat ID: {$chat_id}\n";
@@ -99,7 +96,7 @@ function processMessage($message)
                     $msg .= "Member Arr2: " . implode(',', $member[1]) . "\n";
                     $msg .= "URL: " . BOT_URL;
                     apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $msg));
-                //}
+                }
                 break;
             case (strpos($text, '/del') === 0):
                 apiRequest("sendChatAction", array('chat_id' => $chat_id, 'action' => 'typing'));
@@ -125,18 +122,8 @@ function processMessage($message)
             case (strpos($text, '/getchat') === 0):
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => implode(',', array_keys($member))));
                 break;
-
             case (strpos($text, '/getcv') === 0):
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => implode(' - ', $member)));
-                break;
-            case (strpos($text, '/member1') === 0):
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => gettype($member)));
-                break;
-            case (strpos($text, '/member2') === 0):
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => implode(',', $member)));
-                break;
-            case (strpos($text, '/member3') === 0):
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => print_r($member)));
                 break;
             case (strpos($text, '/gline') === 0):
                 apiRequestJson("sendMessage", array('chat_id' => $chat_id, "text" => 'BAN Global?', 'reply_markup' => array(
@@ -174,7 +161,8 @@ function processMessage($message)
                 );
                 break;
             case (strpos($text, '/ping') === 0):
-                apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "\u{1F64C}"));
+                if (!$isAdmin)
+                    apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "\u{1F64C}"));
             break;
             case (strpos($text, '/lol') === 0):
                 $fp = new CURLFile(realpath(VIDEOS . 'no.mp4'));
