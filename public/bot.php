@@ -61,10 +61,13 @@ function processMessage($message)
     $message_id = $message['message_id'];
     $reply_id = $message['reply_to_message']['message_id'] ?? false;
     $user_id = $message['from']['id'];
+
     $getChat = apiRequest("getChat", array('chat_id' => $chat_id));
     $groupName = basename($getChat['invite_link']);
+
     $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
-    $member = $member['result'];
+
+    //$member = $member['result'];
     $isAdmin = $member['status'] === 'creator' || $member['status'] === 'administrator';
 
     $username = (isset($message['from']['username']) ? $message['from']['username'] : $message['from']['first_name'] . ' ' . $message['from']['last_name']);
@@ -175,26 +178,11 @@ function processMessage($message)
             break;
             case (strpos($text, '/lol') === 0):
                 $fp = new CURLFile(realpath(VIDEOS . 'no.mp4'));
-                apiRequestFile('sendVideoNote', array('chat_id' => $chat_id, 'video' => $fp));
-                break;
-            case (strpos($text, '/no') === 0):
-                $fp = new CURLFile(realpath(VIDEOS . 'no.mp4'));
                 apiRequestFile('sendVideo', array('chat_id' => $chat_id, 'video' => $fp));
                 break;
             case (strpos($text, '/pc') === 0):
                 $fp = new CURLFile(realpath(VIDEOS . 'pc.mp4'));
                 apiRequestFile('sendVideo', array('chat_id' => $chat_id, 'video' => $fp));
-                break;
-            case (strpos($text, '/id') === 0):
-                $id = explode(' ', $text)[1];
-                $info = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
-                error_log("--------   ID   ----------" . PHP_EOL, 3, "../logs/bot.log");
-                error_log("Extr1 " . implode(',', $info[0]) . PHP_EOL, 3, "../logs/bot.log");
-                error_log("Extr2 " . implode(',', $info[1]) . PHP_EOL, 3, "../logs/bot.log");
-                error_log("Extr3 " . implode(',', $info['member']) . PHP_EOL, 3, "../logs/bot.log");
-                error_log("Extr4 " . implode(',', $info) . PHP_EOL, 3, "../logs/bot.log");
-                error_log("--------  FIM ID  --------" . PHP_EOL, 3, "../logs/bot.log");
-                apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => "Checando o ID: {$id}...\n\nDigite /logs para mostrar."));
                 break;
             default:
                 if (filterMessage($text)) {
