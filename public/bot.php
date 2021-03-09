@@ -5,7 +5,8 @@
 
 $envs = parse_ini_file('../.env.local');
 
-define('BLACKLIST', dirname(__DIR__) . DIRECTORY_SEPARATOR . $envs['BLACKLIST'] ?? dirname(__DIR__) . DIRECTORY_SEPARATOR . 'txt/blacklist.txt');
+define('BLACKLIST', $envs['BLACKLIST'] ? dirname(__DIR__) . DIRECTORY_SEPARATOR . $envs['BLACKLIST'] : dirname(__DIR__) . DIRECTORY_SEPARATOR . 'txt/blacklist.txt');
+define('DATABASE', $envs['DATABASE'] ? dirname(__DIR__) . DIRECTORY_SEPARATOR . $envs['DATABASE'] : dirname(__DIR__) . DIRECTORY_SEPARATOR . 'db/banco.db');
 
 define('BOT_TOKEN', $envs['TOKEN']);
 define('API_URL', 'https://api.telegram.org/bot' . BOT_TOKEN . '/');
@@ -22,6 +23,7 @@ define('AUDIOS', __DIR__ . DIRECTORY_SEPARATOR . 'aud' . DIRECTORY_SEPARATOR);
 require_once '../lib/log.php';
 require_once '../lib/api.php';
 require_once '../lib/db.php';
+require_once '../lib/bl.php';
 
 function filterMessage(string $message):bool
 {
@@ -89,6 +91,10 @@ function processMessage($message)
 
             case (strpos($text, '/blacklist') === 0):
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => BLACKLIST));
+                break;
+
+            case (strpos($text, '/database') === 0):
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => blacklistAdd($file_db)));
                 break;
 
             case (strpos($text, '/gline') === 0):
