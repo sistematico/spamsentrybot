@@ -1,7 +1,7 @@
 <?php
 
 try {
-    $file_db = new \PDO("sqlite:" . DATABASE);
- } catch (\PDOException $e) {
-    // handle the exception here
+    $database = new PDO("sqlite:" . DATABASE);
+ } catch (PDOException $e) {
+    $database = null;
  }

@@ -21,9 +21,9 @@ define('VIDEOS', __DIR__ . DIRECTORY_SEPARATOR . 'vid' . DIRECTORY_SEPARATOR);
 define('AUDIOS', __DIR__ . DIRECTORY_SEPARATOR . 'aud' . DIRECTORY_SEPARATOR);
 
 try {
-    $file_db = new PDO("sqlite:" . DATABASE);
+    $database = new PDO("sqlite:" . DATABASE);
 } catch (PDOException $e) {
-    $file_db = null;
+    $database = null;
 }
 
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'log.php';
@@ -57,7 +57,7 @@ function warnUser($message_id, $chat_id, $reply_id, $isAdmin = false)
     } 
 }
 
-function processMessage($message)
+function processMessage($message, $database)
 {
     // process incoming message
     $chat_id = $message['chat']['id'];
@@ -102,8 +102,8 @@ function processMessage($message)
 
             case (strpos($text, '/database') === 0):
                 //apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => blacklistAdd($file_db)));
-                if ($file_db !== null) {
-                    apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => blacklistAdd($file_db)));
+                if ($database !== null) {
+                    apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => blacklistAdd($database)));
                 } else {
                     apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => 'Erro na conexão com o banco de dados.'));
                 }
