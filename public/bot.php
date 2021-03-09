@@ -61,8 +61,8 @@ function processMessage($message)
     $message_id = $message['message_id'];
     $reply_id = $message['reply_to_message']['message_id'] ?? false;
     $user_id = $message['from']['id'];
-
     $getChat = apiRequest("getChat", array('chat_id' => $chat_id));
+    $groupName = basename($getChat['invite_link']);
     $member = apiRequest("getChatMember", array('chat_id' => $chat_id, "user_id" => $user_id));
     $member = $member['result'];
     $isAdmin = $member['status'] === 'creator' || $member['status'] === 'administrator';
@@ -116,6 +116,9 @@ function processMessage($message)
                 //apiRequest("sendVideo", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "video" => CABRON_URL . 'vid/fogo.mp4'));
                 apiRequest('sendSticker', array('chat_id' => $chat_id, 'sticker' => 'CAACAgEAAxkBAAEB371gJb_kkLwJ8bU0Z2_MM41hn8ZRsQACPAADnjOcH14Lzxv4uFR0HgQ'));
                 break;
+            case (strpos($text, '/groupname') === 0):
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $groupName));
+                break;
             case (strpos($text, '/getchat') === 0):
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => implode(',', array_keys($getChat))));
                 break;
@@ -127,9 +130,6 @@ function processMessage($message)
                 break;
             case (strpos($text, '/member3') === 0):
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => print_r($member)));
-                break;
-            case (strpos($text, '/member5') === 0):
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => var_dump($member)));
                 break;
             case (strpos($text, '/gline') === 0):
                 apiRequestJson("sendMessage", array('chat_id' => $chat_id, "text" => 'BAN Global?', 'reply_markup' => array(
