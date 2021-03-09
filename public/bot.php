@@ -123,11 +123,11 @@ function processMessage($message)
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $groupName));
                 break;
             case (strpos($text, '/getchat') === 0):
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => implode(',', array_keys($getChat))));
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => implode(',', array_keys($member))));
                 break;
 
             case (strpos($text, '/getcv') === 0):
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => implode(' - ', $getChat)));
+                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => implode(' - ', $member)));
                 break;
             case (strpos($text, '/member1') === 0):
                 apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => gettype($member)));
