@@ -21,9 +21,9 @@ define('VIDEOS', __DIR__ . DIRECTORY_SEPARATOR . 'vid' . DIRECTORY_SEPARATOR);
 define('AUDIOS', __DIR__ . DIRECTORY_SEPARATOR . 'aud' . DIRECTORY_SEPARATOR);
 
 try {
-    $file_db = new \PDO("sqlite:" . DATABASE);
-} catch (\PDOException $e) {
-    // handle the exception here
+    $file_db = new PDO("sqlite:" . DATABASE);
+} catch (PDOException $e) {
+    $file_db = null;
 }
 
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'log.php';
@@ -97,15 +97,20 @@ function processMessage($message)
                 break;
 
             case (strpos($text, '/blacklist') === 0):
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => BLACKLIST));
+                apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => BLACKLIST));
                 break;
 
             case (strpos($text, '/database') === 0):
-                apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => blacklistAdd($file_db)));
+                //apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => blacklistAdd($file_db)));
+                if ($file_db !== null) {
+                    apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => blacklistAdd($file_db)));
+                } else {
+                    apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => 'Erro na conexão com o banco de dados.'));
+                }
                 break;
 
             case (strpos($text, '/gline') === 0):
-                apiRequestJson("sendMessage", array('chat_id' => $chat_id, "text" => 'BAN Global?', 'reply_markup' => array(
+                apiRequestJson("sendMessage", array('chat_id' => $chat_id, 'text' => 'BAN Global?', 'reply_markup' => array(
                     'keyboard' => array(array('Sim', 'Não')),
                     'one_time_keyboard' => true,
                     'resize_keyboard' => true)));
